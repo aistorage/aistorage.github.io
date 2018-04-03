@@ -152,6 +152,91 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-STL unordered_set的使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/03/STL unordered_set的使用/">STL unordered_set的使用</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/03/STL unordered_set的使用/" class="archive-article-date">
+  	<time datetime="2018-04-03T12:59:48.179Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">template &lt; class Key, </span><br><span class="line">           class Hash = hash&lt;Key&gt;,        </span><br><span class="line">           class Pred = equal_to&lt;Key&gt;,    </span><br><span class="line">           class Alloc = allocator&lt;Key&gt;   </span><br><span class="line">           &gt; class unordered_set;</span><br></pre></td></tr></table></figure>
+<h3 id="1-使用前先定义"><a href="#1-使用前先定义" class="headerlink" title="1.使用前先定义"></a>1.使用前先定义</h3><h5 id="1-定义元素类"><a href="#1-定义元素类" class="headerlink" title="(1)定义元素类"></a>(1)定义元素类</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Entry</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">    string key;</span><br><span class="line">    Value value;</span><br><span class="line">public:</span><br><span class="line">    Entry(const string str,Value * value)&#123;</span><br><span class="line">        key = str;</span><br><span class="line">        this-&gt;value.a = value-&gt;a;</span><br><span class="line">        this-&gt;value.b = value-&gt;b;</span><br><span class="line">    &#125;</span><br><span class="line">    string getK()</span><br><span class="line">    &#123;</span><br><span class="line">        return key;</span><br><span class="line">    &#125;</span><br><span class="line">    Value getV()</span><br><span class="line">    &#123;</span><br><span class="line">        return value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2018/04/03/STL unordered_set的使用/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">unordered_set</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">STL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/03/STL unordered_set的使用/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-VSCode配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -234,30 +319,29 @@
 
 
   
-    <article id="post-STL unordered_set的使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-SSD OP分区预留" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/STL unordered_set的使用/">STL unordered_set的使用</a>
+      <a class="article-title" href="/2018/04/03/SSD OP分区预留/">SSD OP分区预留</a>
     </h1>
   
 
         
-        <a href="/2018/04/03/STL unordered_set的使用/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.179Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
+        <a href="/2018/04/03/SSD OP分区预留/" class="archive-article-date">
+  	<time datetime="2018-04-03T12:59:48.163Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">template &lt; class Key, </span><br><span class="line">           class Hash = hash&lt;Key&gt;,        </span><br><span class="line">           class Pred = equal_to&lt;Key&gt;,    </span><br><span class="line">           class Alloc = allocator&lt;Key&gt;   </span><br><span class="line">           &gt; class unordered_set;</span><br></pre></td></tr></table></figure>
-<h3 id="1-使用前先定义"><a href="#1-使用前先定义" class="headerlink" title="1.使用前先定义"></a>1.使用前先定义</h3><h5 id="1-定义元素类"><a href="#1-定义元素类" class="headerlink" title="(1)定义元素类"></a>(1)定义元素类</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Entry</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">    string key;</span><br><span class="line">    Value value;</span><br><span class="line">public:</span><br><span class="line">    Entry(const string str,Value * value)&#123;</span><br><span class="line">        key = str;</span><br><span class="line">        this-&gt;value.a = value-&gt;a;</span><br><span class="line">        this-&gt;value.b = value-&gt;b;</span><br><span class="line">    &#125;</span><br><span class="line">    string getK()</span><br><span class="line">    &#123;</span><br><span class="line">        return key;</span><br><span class="line">    &#125;</span><br><span class="line">    Value getV()</span><br><span class="line">    &#123;</span><br><span class="line">        return value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+        <p>SSD上的OP指的是用户不可操作的容量，大小为实际容量减去用户可用容量，OP区域一般被用于优化操作如：WL，GC和坏块映射等。我们知道OP区间对于SSD的性能影响非常大，会减少SSD的可用容量，有减少WA、提高寿命、性能的正面作用。</p>
         
-          <a class="article-more-a" href="/2018/04/03/STL unordered_set的使用/#more">more >></a>
+          <a class="article-more-a" href="/2018/04/03/SSD OP分区预留/#more">more >></a>
         
       
 
@@ -271,15 +355,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OP预留分区</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">unordered_set</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">STL</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SSD</a>
         		</li>
       		
 		</ul>
@@ -289,7 +369,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/STL unordered_set的使用/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/04/03/SSD OP分区预留/">展开全文 >></a>
         </p>
       
 
@@ -377,86 +457,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/04/03/ssdsim学习1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SSD OP分区预留" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/SSD OP分区预留/">SSD OP分区预留</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/SSD OP分区预留/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.163Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>SSD上的OP指的是用户不可操作的容量，大小为实际容量减去用户可用容量，OP区域一般被用于优化操作如：WL，GC和坏块映射等。我们知道OP区间对于SSD的性能影响非常大，会减少SSD的可用容量，有减少WA、提高寿命、性能的正面作用。</p>
-        
-          <a class="article-more-a" href="/2018/04/03/SSD OP分区预留/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OP预留分区</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SSD</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/SSD OP分区预留/">展开全文 >></a>
         </p>
       
 
@@ -736,89 +736,6 @@
 
 
   
-    <article id="post-kmeans聚类" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/kmeans聚类/">kmeans聚类</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/kmeans聚类/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.116Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>聚类算法有很多种，比如K-Means，AP聚类，层次聚类(Hierarchical clustering)等等，主要说一下K-Means.</p>
-<h2 id="kmeans简介"><a href="#kmeans简介" class="headerlink" title="kmeans简介"></a>kmeans简介</h2><p>K-Means之所以很受欢迎，就是其速度很快并且有很好的可扩展性。K-Means算法是一个重复移动类中心点的过程，把类的中心点，也称重心（centroids），移动到其包含成员的平均位置，然后重新划分其内部成员。</p>
-<p>在博文<a href="http://imyin.xyz/2016/10/08/K-Means/" target="_blank" rel="noopener">K-Means聚类</a>中有一个很好的里子说明了kmeans的具体工作原理。</p>
-<h2 id="kmeans库的使用"><a href="#kmeans库的使用" class="headerlink" title="kmeans库的使用"></a>kmeans库的使用</h2><p>在scikit_learn库中就有kmeans算法的具体实现，官方说明见连接<a href="http://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html" target="_blank" rel="noopener">sklearn.cluster.KMeans</a></p>
-        
-          <a class="article-more-a" href="/2018/04/03/kmeans聚类/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">kmeans聚类</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/kmeans聚类/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-flashcache-6-利用blktrace记录IO，利用fio重放日志" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -880,6 +797,89 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/04/03/flashcache-6-利用blktrace记录IO，利用fio重放日志/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-kmeans聚类" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/03/kmeans聚类/">kmeans聚类</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/03/kmeans聚类/" class="archive-article-date">
+  	<time datetime="2018-04-03T12:59:48.116Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>聚类算法有很多种，比如K-Means，AP聚类，层次聚类(Hierarchical clustering)等等，主要说一下K-Means.</p>
+<h2 id="kmeans简介"><a href="#kmeans简介" class="headerlink" title="kmeans简介"></a>kmeans简介</h2><p>K-Means之所以很受欢迎，就是其速度很快并且有很好的可扩展性。K-Means算法是一个重复移动类中心点的过程，把类的中心点，也称重心（centroids），移动到其包含成员的平均位置，然后重新划分其内部成员。</p>
+<p>在博文<a href="http://imyin.xyz/2016/10/08/K-Means/" target="_blank" rel="noopener">K-Means聚类</a>中有一个很好的里子说明了kmeans的具体工作原理。</p>
+<h2 id="kmeans库的使用"><a href="#kmeans库的使用" class="headerlink" title="kmeans库的使用"></a>kmeans库的使用</h2><p>在scikit_learn库中就有kmeans算法的具体实现，官方说明见连接<a href="http://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html" target="_blank" rel="noopener">sklearn.cluster.KMeans</a></p>
+        
+          <a class="article-more-a" href="/2018/04/03/kmeans聚类/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">kmeans聚类</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/03/kmeans聚类/">展开全文 >></a>
         </p>
       
 
@@ -1103,10 +1103,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">C++</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">OP预留分区</a>
               </li>
              
@@ -1115,11 +1111,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">unordered_set</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">STL</a>
+                <a href="javascript:void(0)" class="js-tag color4">C++</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1128,6 +1120,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">c++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">unordered_set</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">STL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1147,10 +1147,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">filebench</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">blktrace</a>
               </li>
              
@@ -1159,11 +1155,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">kmeans聚类</a>
+                <a href="javascript:void(0)" class="js-tag color5">filebench</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1175,15 +1167,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">kmeans聚类</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">编程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1195,11 +1191,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">总线</a>
+                <a href="javascript:void(0)" class="js-tag color3">github pages</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">github pages</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1208,6 +1204,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文件系统</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">总线</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1227,14 +1227,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">scikit_learn</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">排队论</a>
               </li>
              
@@ -1251,7 +1243,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">cache-sim</a>
+                <a href="javascript:void(0)" class="js-tag color3">scikit_learn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">zycache</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1259,7 +1259,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">zycache</a>
+                <a href="javascript:void(0)" class="js-tag color5">cache-sim</a>
               </li>
             
             <div class="clearfix"></div>
