@@ -21,7 +21,7 @@
   
     <link rel="icon" href="/favicon.png">
   
-  <link rel="stylesheet" type="text/css" href="/./main.b3331d.css">
+  <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
   <style type="text/css">
   
     #container.show {
@@ -49,7 +49,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="http://onx1obrfu.bkt.clouddn.com/joystorage/photo-mid/武汉1.jpg" class="js-avatar">
+			<img src="http://onx1obrfu.bkt.clouddn.com/头像2.jpg" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">Yu Zhang</a></h1>
@@ -178,7 +178,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic" style="margin-top:40px">
-				<img src="http://onx1obrfu.bkt.clouddn.com/joystorage/photo-mid/武汉1.jpg" class="js-avatar">
+				<img src="http://onx1obrfu.bkt.clouddn.com/头像2.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">Yu Zhang</h1>
@@ -232,6 +232,95 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-STL unordered_set的使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/03/STL unordered_set的使用/">STL unordered_set的使用</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/03/STL unordered_set的使用/" class="archive-article-date">
+  	<time datetime="2018-04-03T12:59:48.179Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
+</a>
+        
+ 
+     
+
+      </header>
+
+    
+    <div class="article-entry" itemprop="articleBody">
+   
+      <div style="margin-left:-5px">
+        
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">unordered_set</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">STL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+        
+
+      </div>
+
+      <br/><br/>
+
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">template &lt; class Key, </span><br><span class="line">           class Hash = hash&lt;Key&gt;,        </span><br><span class="line">           class Pred = equal_to&lt;Key&gt;,    </span><br><span class="line">           class Alloc = allocator&lt;Key&gt;   </span><br><span class="line">           &gt; class unordered_set;</span><br></pre></td></tr></table></figure>
+<h3 id="1-使用前先定义"><a href="#1-使用前先定义" class="headerlink" title="1.使用前先定义"></a>1.使用前先定义</h3><h5 id="1-定义元素类"><a href="#1-定义元素类" class="headerlink" title="(1)定义元素类"></a>(1)定义元素类</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Entry</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">    string key;</span><br><span class="line">    Value value;</span><br><span class="line">public:</span><br><span class="line">    Entry(const string str,Value * value)&#123;</span><br><span class="line">        key = str;</span><br><span class="line">        this-&gt;value.a = value-&gt;a;</span><br><span class="line">        this-&gt;value.b = value-&gt;b;</span><br><span class="line">    &#125;</span><br><span class="line">    string getK()</span><br><span class="line">    &#123;</span><br><span class="line">        return key;</span><br><span class="line">    &#125;</span><br><span class="line">    Value getV()</span><br><span class="line">    &#123;</span><br><span class="line">        return value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2018/04/03/STL unordered_set的使用/#more">more >></a>
+        
+      
+
+            
+    </div>
+
+    <div class="article-info article-info-index">
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/03/STL unordered_set的使用/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
   
     <article id="post-VSCode配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -319,20 +408,20 @@
 
 
   
-    <article id="post-STL unordered_set的使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-SSD OP分区预留" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/STL unordered_set的使用/">STL unordered_set的使用</a>
+      <a class="article-title" href="/2018/04/03/SSD OP分区预留/">SSD OP分区预留</a>
     </h1>
   
 
         
-        <a href="/2018/04/03/STL unordered_set的使用/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.179Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
+        <a href="/2018/04/03/SSD OP分区预留/" class="archive-article-date">
+  	<time datetime="2018-04-03T12:59:48.163Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
 </a>
         
  
@@ -350,15 +439,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OP预留分区</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">unordered_set</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">STL</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SSD</a>
         		</li>
       		
 		</ul>
@@ -371,10 +456,9 @@
       <br/><br/>
 
       
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">template &lt; class Key, </span><br><span class="line">           class Hash = hash&lt;Key&gt;,        </span><br><span class="line">           class Pred = equal_to&lt;Key&gt;,    </span><br><span class="line">           class Alloc = allocator&lt;Key&gt;   </span><br><span class="line">           &gt; class unordered_set;</span><br></pre></td></tr></table></figure>
-<h3 id="1-使用前先定义"><a href="#1-使用前先定义" class="headerlink" title="1.使用前先定义"></a>1.使用前先定义</h3><h5 id="1-定义元素类"><a href="#1-定义元素类" class="headerlink" title="(1)定义元素类"></a>(1)定义元素类</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Entry</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">    string key;</span><br><span class="line">    Value value;</span><br><span class="line">public:</span><br><span class="line">    Entry(const string str,Value * value)&#123;</span><br><span class="line">        key = str;</span><br><span class="line">        this-&gt;value.a = value-&gt;a;</span><br><span class="line">        this-&gt;value.b = value-&gt;b;</span><br><span class="line">    &#125;</span><br><span class="line">    string getK()</span><br><span class="line">    &#123;</span><br><span class="line">        return key;</span><br><span class="line">    &#125;</span><br><span class="line">    Value getV()</span><br><span class="line">    &#123;</span><br><span class="line">        return value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+        <p>SSD上的OP指的是用户不可操作的容量，大小为实际容量减去用户可用容量，OP区域一般被用于优化操作如：WL，GC和坏块映射等。我们知道OP区间对于SSD的性能影响非常大，会减少SSD的可用容量，有减少WA、提高寿命、性能的正面作用。</p>
         
-          <a class="article-more-a" href="/2018/04/03/STL unordered_set的使用/#more">more >></a>
+          <a class="article-more-a" href="/2018/04/03/SSD OP分区预留/#more">more >></a>
         
       
 
@@ -387,7 +471,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/STL unordered_set的使用/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/04/03/SSD OP分区预留/">展开全文 >></a>
         </p>
       
 
@@ -479,90 +563,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/04/03/ssdsim学习1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-SSD OP分区预留" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/SSD OP分区预留/">SSD OP分区预留</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/SSD OP分区预留/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.163Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
- 
-     
-
-      </header>
-
-    
-    <div class="article-entry" itemprop="articleBody">
-   
-      <div style="margin-left:-5px">
-        
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OP预留分区</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SSD</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-        
-
-      </div>
-
-      <br/><br/>
-
-      
-        <p>SSD上的OP指的是用户不可操作的容量，大小为实际容量减去用户可用容量，OP区域一般被用于优化操作如：WL，GC和坏块映射等。我们知道OP区间对于SSD的性能影响非常大，会减少SSD的可用容量，有减少WA、提高寿命、性能的正面作用。</p>
-        
-          <a class="article-more-a" href="/2018/04/03/SSD OP分区预留/#more">more >></a>
-        
-      
-
-            
-    </div>
-
-    <div class="article-info article-info-index">
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/SSD OP分区预留/">展开全文 >></a>
         </p>
       
 
@@ -1259,19 +1259,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">unordered_set</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">STL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">VSCode</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">c++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">unordered_set</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">STL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1291,10 +1291,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">filebench</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">blktrace</a>
               </li>
              
@@ -1303,11 +1299,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">kmeans聚类</a>
+                <a href="javascript:void(0)" class="js-tag color5">filebench</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1319,11 +1311,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ssdsim</a>
+                <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ssd</a>
+                <a href="javascript:void(0)" class="js-tag color4">kmeans聚类</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1335,11 +1327,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color2">ssdsim</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">github pages</a>
+                <a href="javascript:void(0)" class="js-tag color4">ssd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1347,11 +1343,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">RAID</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文件系统</a>
+                <a href="javascript:void(0)" class="js-tag color3">github pages</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1363,19 +1355,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">排队论</a>
+                <a href="javascript:void(0)" class="js-tag color5">RAID</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ad hoc无线网</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">IO路径优化</a>
+                <a href="javascript:void(0)" class="js-tag color5">文件系统</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1387,11 +1371,27 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">IO路径优化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">排队论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ad hoc无线网</a>
               </li>
              
               <li class="article-tag-list-item">
