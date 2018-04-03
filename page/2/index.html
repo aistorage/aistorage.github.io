@@ -39,13 +39,7 @@
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
     <div class="left-col" q-class="show:isShow">
       
-<div class="overlay" style="background: #4d4d4d">
-	
-	  <div align="center" style="margin-top:6px">
-<p style="color:#FFFFFF;font-size:90%">您是第<img border="0" style="height:16px;margin-top:-6px" src="http://cc.amazingcounters.com/counter.php?i=3213753&c=9641572">位访客</p>
-</div>
-	
-</div>
+<div class="overlay" style="background: #4d4d4d"></div>
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
@@ -54,10 +48,6 @@
 		<hgroup>
 		  <h1 class="header-author"><a href="/">Yu Zhang</a></h1>
 		</hgroup>
-
-		<h3 class="header-subtitle">早起 | 独处 | 自律</h3>
-		<p class="header-subtitle">yuzhang2016@hust.edu.cn</p>
-		
 		
 
 		<nav class="header-menu">
@@ -95,98 +85,25 @@
 		        
 			</div>
 		</nav>
-	</header>
+	</header>		
 </div>
 
-<!--百度地图容器-->
-<!--div style="width:300px;height:15%;border:#ccc solid 1px;font-size:12px;bottom:0;position:fixed;" id="map"></div-->
-
-<!--引用百度地图API
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=4ybAVROAC7MtW5Qa1RRFGVbkM7apvly5"></script>
-<script type="text/javascript">
-    //创建和初始化地图函数：
-    function initMap(){
-      createMap();//创建地图
-      setMapEvent();//设置地图事件
-      addMapControl();//向地图添加控件
-      addMapOverlay();//向地图添加覆盖物
-    }
-    function createMap(){ 
-      map = new BMap.Map("map"); 
-      map.centerAndZoom(new BMap.Point(114.43236,30.514428),14);
-    }
-    function setMapEvent(){
-      map.enableScrollWheelZoom();
-      map.enableKeyboard();
-      map.enableDragging();
-      map.enableDoubleClickZoom()
-    }
-    function addClickHandler(target,window){
-      target.addEventListener("click",function(){
-        target.openInfoWindow(window);
-      });
-    }
-    function addMapOverlay(){
-      var markers = [
-        {content:"我的备注",title:"武汉光电国家实验室",imageOffset: {width:0,height:3},position:{lat:30.516232,lng:114.431677}}
-      ];
-      for(var index = 0; index < markers.length; index++ ){
-        var point = new BMap.Point(markers[index].position.lng,markers[index].position.lat);
-        var marker = new BMap.Marker(point,{icon:new BMap.Icon("http://api.map.baidu.com/lbsapi/createmap/images/icon.png",new BMap.Size(20,25),{
-          imageOffset: new BMap.Size(markers[index].imageOffset.width,markers[index].imageOffset.height)
-        })});
-        var label = new BMap.Label(markers[index].title,{offset: new BMap.Size(25,5)});
-        var opts = {
-          width: 200,
-          title: markers[index].title,
-          enableMessage: false
-        };
-        var infoWindow = new BMap.InfoWindow(markers[index].content,opts);
-        marker.setLabel(label);
-        addClickHandler(marker,infoWindow);
-        map.addOverlay(marker);
-      };
-    }
-    //向地图添加控件
-    function addMapControl(){
-      var scaleControl = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
-      scaleControl.setUnit(BMAP_UNIT_METRIC);
-      map.addControl(scaleControl);
-      var navControl = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
-      map.addControl(navControl);
-      var overviewControl = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:false});
-      map.addControl(overviewControl);
-    }
-    var map;
-      initMap();
-  </script>
-  -->
     </div>
     <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
-  	<div class="overlay js-overlay" style="background: #4d4d4d">
-		
-			<div align="center" style="margin-top:6px">
-<p style="color:#FFFFFF;font-size:90%">您是第<img border="0" style="height:16px;margin-top:-6px" src="http://cc.amazingcounters.com/counter.php?i=3213753&c=9641572">位访客</p>
-</div>
-		
-  	</div>
+  	<div class="overlay js-overlay" style="background: #4d4d4d"></div>
 	<div class="btnctn js-mobile-btnctn">
   		<div class="slider-trigger list" q-on="click: openSlider(e)"><i class="icon icon-sort"></i></div>
 	</div>
 	<div class="intrude-less">
 		<header id="header" class="inner">
-			<div class="profilepic" style="margin-top:40px">
+			<div class="profilepic">
 				<img src="http://onx1obrfu.bkt.clouddn.com/头像2.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">Yu Zhang</h1>
 			</hgroup>
-
-			<h3 class="header-subtitle">早起 | 独处 | 自律</h3>
-			<p class="header-subtitle">yuzhang2016@hust.edu.cn</p>
-			
 			
 			
 			
@@ -233,95 +150,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-机器学习 scikit_learn使用-2-demo" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/机器学习 scikit_learn使用-2-demo/">机器学习 scikit_learn使用-2-demo</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/机器学习 scikit_learn使用-2-demo/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.257Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
- 
-     
-
-      </header>
-
-    
-    <div class="article-entry" itemprop="articleBody">
-   
-      <div style="margin-left:-5px">
-        
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">scikit_learn</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-        
-
-      </div>
-
-      <br/><br/>
-
-      
-        <h2 id="加载样本数据集"><a href="#加载样本数据集" class="headerlink" title="加载样本数据集"></a>加载样本数据集</h2><p>scikit-learn带有一些标准的数据集，例如用于分类的iris和digit数据集和用于回归的 boston house prices dataset .</p>
-<p>下面，我们打开Python编译器，然后载入iris和digits数据集。我们的符号’$’表示shell提示，’&gt;&gt;&gt;’表示python编译器提示</p>
-        
-          <a class="article-more-a" href="/2018/04/03/机器学习 scikit_learn使用-2-demo/#more">more >></a>
-        
-      
-
-            
-    </div>
-
-    <div class="article-info article-info-index">
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/机器学习 scikit_learn使用-2-demo/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-机器学习 scikit_learn使用-1-安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -338,16 +166,21 @@
   	<time datetime="2018-04-03T12:59:48.257Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
 </a>
         
- 
-     
-
       </header>
-
     
     <div class="article-entry" itemprop="articleBody">
-   
-      <div style="margin-left:-5px">
+      
+        <h2 id="机器学习分类"><a href="#机器学习分类" class="headerlink" title="机器学习分类"></a>机器学习分类</h2><p>通常，一个学习问题是通过一系列的n个样本数据来学习然后尝试预测未知数据的属性。如果每一个样本超过一个单一的数值，例如多维输入（也叫做多维数据），那么它就拥有了多个特征。 </p>
         
+          <a class="article-more-a" href="/2018/04/03/机器学习 scikit_learn使用-1-安装/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -367,24 +200,6 @@
 		</ul>
 	</div>
 
-        
-
-      </div>
-
-      <br/><br/>
-
-      
-        <h2 id="机器学习分类"><a href="#机器学习分类" class="headerlink" title="机器学习分类"></a>机器学习分类</h2><p>通常，一个学习问题是通过一系列的n个样本数据来学习然后尝试预测未知数据的属性。如果每一个样本超过一个单一的数值，例如多维输入（也叫做多维数据），那么它就拥有了多个特征。 </p>
-        
-          <a class="article-more-a" href="/2018/04/03/机器学习 scikit_learn使用-1-安装/#more">more >></a>
-        
-      
-
-            
-    </div>
-
-    <div class="article-info article-info-index">
-
       
 
       
@@ -396,15 +211,109 @@
       
       <div class="clearfix"></div>
     </div>
-
   </div>
 </article>
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
 
 
 
 
+  
+    <article id="post-机器学习 scikit_learn使用-2-demo" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/03/机器学习 scikit_learn使用-2-demo/">机器学习 scikit_learn使用-2-demo</a>
+    </h1>
+  
 
+        
+        <a href="/2018/04/03/机器学习 scikit_learn使用-2-demo/" class="archive-article-date">
+  	<time datetime="2018-04-03T12:59:48.257Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="加载样本数据集"><a href="#加载样本数据集" class="headerlink" title="加载样本数据集"></a>加载样本数据集</h2><p>scikit-learn带有一些标准的数据集，例如用于分类的iris和digit数据集和用于回归的 boston house prices dataset .</p>
+<p>下面，我们打开Python编译器，然后载入iris和digits数据集。我们的符号’$’表示shell提示，’&gt;&gt;&gt;’表示python编译器提示</p>
+        
+          <a class="article-more-a" href="/2018/04/03/机器学习 scikit_learn使用-2-demo/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">scikit_learn</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/03/机器学习 scikit_learn使用-2-demo/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
 
 
 
@@ -426,16 +335,21 @@
   	<time datetime="2018-04-03T12:59:48.241Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
 </a>
         
- 
-     
-
       </header>
-
     
     <div class="article-entry" itemprop="articleBody">
-   
-      <div style="margin-left:-5px">
+      
+        <p>为了方便实验，最近自己实现了一套缓存模拟器，以<a href="http://iotta.snia.org/tracetypes/3" target="_blank" rel="noopener">SNIA网站</a>上提供的TRACE为输入，分别实现了FIFO,LRU,LFU,OPT,ARC等经典的缓存算法，整个模拟器通过C++实现，利用面向对象思想。<a href="https://github.com/zydirtyfish/zycache.git" target="_blank" rel="noopener">代码见github</a></p>
         
+          <a class="article-more-a" href="/2018/04/03/缓存模拟器-zycache/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -455,24 +369,6 @@
 		</ul>
 	</div>
 
-        
-
-      </div>
-
-      <br/><br/>
-
-      
-        <p>为了方便实验，最近自己实现了一套缓存模拟器，以<a href="http://iotta.snia.org/tracetypes/3" target="_blank" rel="noopener">SNIA网站</a>上提供的TRACE为输入，分别实现了FIFO,LRU,LFU,OPT,ARC等经典的缓存算法，整个模拟器通过C++实现，利用面向对象思想。<a href="https://github.com/zydirtyfish/zycache.git" target="_blank" rel="noopener">代码见github</a></p>
-        
-          <a class="article-more-a" href="/2018/04/03/缓存模拟器-zycache/#more">more >></a>
-        
-      
-
-            
-    </div>
-
-    <div class="article-info article-info-index">
-
       
 
       
@@ -484,15 +380,24 @@
       
       <div class="clearfix"></div>
     </div>
-
   </div>
 </article>
 
-
-
-
-
-
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
 
 
 
@@ -514,16 +419,26 @@
   	<time datetime="2018-04-03T12:59:48.241Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
 </a>
         
- 
-     
-
       </header>
-
     
     <div class="article-entry" itemprop="articleBody">
-   
-      <div style="margin-left:-5px">
+      
+        <h4 id="代码已经上传至github"><a href="#代码已经上传至github" class="headerlink" title="代码已经上传至github"></a>代码已经上传至<a href="https://github.com/zydirtyfish/cache-sim_v1.0" target="_blank" rel="noopener">github</a></h4><p>通过下列命令下载</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/zydirtyfish/cache-sim_v1.0.git</span><br></pre></td></tr></table></figure>
+<p>进入目录，make进行编译</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make</span><br></pre></td></tr></table></figure>
+<p>输入下列命令可运行demo程序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make run</span><br></pre></td></tr></table></figure>
         
+          <a class="article-more-a" href="/2018/04/03/缓存模拟器-cache-sim_v1.0/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -543,29 +458,6 @@
 		</ul>
 	</div>
 
-        
-
-      </div>
-
-      <br/><br/>
-
-      
-        <h4 id="代码已经上传至github"><a href="#代码已经上传至github" class="headerlink" title="代码已经上传至github"></a>代码已经上传至<a href="https://github.com/zydirtyfish/cache-sim_v1.0" target="_blank" rel="noopener">github</a></h4><p>通过下列命令下载</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/zydirtyfish/cache-sim_v1.0.git</span><br></pre></td></tr></table></figure>
-<p>进入目录，make进行编译</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make</span><br></pre></td></tr></table></figure>
-<p>输入下列命令可运行demo程序</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make run</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2018/04/03/缓存模拟器-cache-sim_v1.0/#more">more >></a>
-        
-      
-
-            
-    </div>
-
-    <div class="article-info article-info-index">
-
       
 
       
@@ -577,15 +469,24 @@
       
       <div class="clearfix"></div>
     </div>
-
   </div>
 </article>
 
-
-
-
-
-
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
 
 
 
@@ -607,16 +508,27 @@
   	<time datetime="2018-04-03T12:59:48.226Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
 </a>
         
- 
-     
-
       </header>
-
     
     <div class="article-entry" itemprop="articleBody">
-   
-      <div style="margin-left:-5px">
+      
+        <h1 id="磁盘阵列"><a href="#磁盘阵列" class="headerlink" title="磁盘阵列"></a>磁盘阵列</h1><p>多个磁盘通过RAID卡组合起来,组成JBOD（just a bound of Disks,一串磁盘）.<strong>JBOD称为磁盘柜,凡是自带RAID控制器的盘柜就叫做磁盘阵列或者盘阵.</strong></p>
+<h4 id="双控制器"><a href="#双控制器" class="headerlink" title="双控制器"></a>双控制器</h4><p>常用两个控制器来保证磁盘阵列的安全性</p>
+<ul>
+<li>Active-Standby热备份<br>  一个作为备份，只有当主控制器故障时副控制器才工作</li>
+<li>Dual-Active双控制器同时工作<br>两个同时工作，当其中一个故障时，另一个仍能正常接管整个阵列的管理.</li>
+<li>Split Brain脑分裂<br>其中一个控制器检测不到另一个控制器的存在,则向电源控制器发送信号，重启对方并进入Standby状态.</li>
+</ul>
         
+          <a class="article-more-a" href="/2018/04/03/存储相关-3-磁盘阵列以及存储系统(DAS、SAN和NAS)/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -636,30 +548,6 @@
 		</ul>
 	</div>
 
-        
-
-      </div>
-
-      <br/><br/>
-
-      
-        <h1 id="磁盘阵列"><a href="#磁盘阵列" class="headerlink" title="磁盘阵列"></a>磁盘阵列</h1><p>多个磁盘通过RAID卡组合起来,组成JBOD（just a bound of Disks,一串磁盘）.<strong>JBOD称为磁盘柜,凡是自带RAID控制器的盘柜就叫做磁盘阵列或者盘阵.</strong></p>
-<h4 id="双控制器"><a href="#双控制器" class="headerlink" title="双控制器"></a>双控制器</h4><p>常用两个控制器来保证磁盘阵列的安全性</p>
-<ul>
-<li>Active-Standby热备份<br>  一个作为备份，只有当主控制器故障时副控制器才工作</li>
-<li>Dual-Active双控制器同时工作<br>两个同时工作，当其中一个故障时，另一个仍能正常接管整个阵列的管理.</li>
-<li>Split Brain脑分裂<br>其中一个控制器检测不到另一个控制器的存在,则向电源控制器发送信号，重启对方并进入Standby状态.</li>
-</ul>
-        
-          <a class="article-more-a" href="/2018/04/03/存储相关-3-磁盘阵列以及存储系统(DAS、SAN和NAS)/#more">more >></a>
-        
-      
-
-            
-    </div>
-
-    <div class="article-info article-info-index">
-
       
 
       
@@ -671,15 +559,24 @@
       
       <div class="clearfix"></div>
     </div>
-
   </div>
 </article>
 
-
-
-
-
-
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
 
 
 
@@ -701,16 +598,25 @@
   	<time datetime="2018-04-03T12:59:48.226Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
 </a>
         
- 
-     
-
       </header>
-
     
     <div class="article-entry" itemprop="articleBody">
-   
-      <div style="margin-left:-5px">
+      
+        <h1 id="几个概念"><a href="#几个概念" class="headerlink" title="几个概念"></a>几个概念</h1><ul>
+<li>HPC（High Performance Computing）高性能计算<br>通过增加整个计算系统CPU总核心数，可以成倍缩短执行时间</li>
+<li>HAC（High available Computing）高可用性集群<br>通过备份，当一活动节点发生故障时，备份可用，不会影响整个系统的使用</li>
+<li>LBC负载均衡计算</li>
+</ul>
         
+          <a class="article-more-a" href="/2018/04/03/存储相关-4-虚拟化与系统IO路径优化/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -730,28 +636,6 @@
 		</ul>
 	</div>
 
-        
-
-      </div>
-
-      <br/><br/>
-
-      
-        <h1 id="几个概念"><a href="#几个概念" class="headerlink" title="几个概念"></a>几个概念</h1><ul>
-<li>HPC（High Performance Computing）高性能计算<br>通过增加整个计算系统CPU总核心数，可以成倍缩短执行时间</li>
-<li>HAC（High available Computing）高可用性集群<br>通过备份，当一活动节点发生故障时，备份可用，不会影响整个系统的使用</li>
-<li>LBC负载均衡计算</li>
-</ul>
-        
-          <a class="article-more-a" href="/2018/04/03/存储相关-4-虚拟化与系统IO路径优化/#more">more >></a>
-        
-      
-
-            
-    </div>
-
-    <div class="article-info article-info-index">
-
       
 
       
@@ -763,15 +647,24 @@
       
       <div class="clearfix"></div>
     </div>
-
   </div>
 </article>
 
-
-
-
-
-
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
 
 
 
@@ -793,37 +686,9 @@
   	<time datetime="2018-04-03T12:59:48.210Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
 </a>
         
- 
-     
-
       </header>
-
     
     <div class="article-entry" itemprop="articleBody">
-   
-      <div style="margin-left:-5px">
-        
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">存储</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">总线</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-        
-
-      </div>
-
-      <br/><br/>
-
       
         <h1 id="1-IO总线"><a href="#1-IO总线" class="headerlink" title="1 IO总线"></a>1 IO总线</h1><h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><ul>
 <li>仲裁总线（控制总线）</li>
@@ -841,10 +706,25 @@
         
       
 
-            
+      
     </div>
-
     <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">存储</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">总线</a>
+        		</li>
+      		
+		</ul>
+	</div>
 
       
 
@@ -857,15 +737,24 @@
       
       <div class="clearfix"></div>
     </div>
-
   </div>
 </article>
 
-
-
-
-
-
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
 
 
 
@@ -887,16 +776,21 @@
   	<time datetime="2018-04-03T12:59:48.210Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
 </a>
         
- 
-     
-
       </header>
-
     
     <div class="article-entry" itemprop="articleBody">
-   
-      <div style="margin-left:-5px">
+      
+        <h1 id="七种RAID"><a href="#七种RAID" class="headerlink" title="七种RAID"></a>七种RAID</h1><p>RAID以4个扇区组成的块作为基本单位，不同磁盘的相同偏移处的块组成Stripe，也就是条带.对于RAID 0 磁盘组，如果有大块数据写入时，则数据在很大几率上可以以条带为单位写入，并行写入能大大提高写入速度.</p>
         
+          <a class="article-more-a" href="/2018/04/03/存储相关-2-RAID、虚拟磁盘、卷和文件系统/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -916,24 +810,6 @@
 		</ul>
 	</div>
 
-        
-
-      </div>
-
-      <br/><br/>
-
-      
-        <h1 id="七种RAID"><a href="#七种RAID" class="headerlink" title="七种RAID"></a>七种RAID</h1><p>RAID以4个扇区组成的块作为基本单位，不同磁盘的相同偏移处的块组成Stripe，也就是条带.对于RAID 0 磁盘组，如果有大块数据写入时，则数据在很大几率上可以以条带为单位写入，并行写入能大大提高写入速度.</p>
-        
-          <a class="article-more-a" href="/2018/04/03/存储相关-2-RAID、虚拟磁盘、卷和文件系统/#more">more >></a>
-        
-      
-
-            
-    </div>
-
-    <div class="article-info article-info-index">
-
       
 
       
@@ -945,15 +821,24 @@
       
       <div class="clearfix"></div>
     </div>
-
   </div>
 </article>
 
-
-
-
-
-
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
 
 
 
@@ -975,33 +860,9 @@
   	<time datetime="2018-04-03T12:59:48.194Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
 </a>
         
- 
-     
-
       </header>
-
     
     <div class="article-entry" itemprop="articleBody">
-   
-      <div style="margin-left:-5px">
-        
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-        
-
-      </div>
-
-      <br/><br/>
-
       
         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=27646205&auto=0&height=66"></iframe>
 
@@ -1013,10 +874,21 @@
         
       
 
-            
+      
     </div>
-
     <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		
+		</ul>
+	</div>
 
       
 
@@ -1029,15 +901,24 @@
       
       <div class="clearfix"></div>
     </div>
-
   </div>
 </article>
 
-
-
-
-
-
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
 
 
 
@@ -1059,16 +940,21 @@
   	<time datetime="2018-04-03T12:59:48.194Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
 </a>
         
- 
-     
-
       </header>
-
     
     <div class="article-entry" itemprop="articleBody">
-   
-      <div style="margin-left:-5px">
+      
+        <p><img src="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/般若波罗蜜1.jpg" alt="image"></p>
         
+          <a class="article-more-a" href="/2018/04/03/般若波罗蜜多心经/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -1084,24 +970,6 @@
 		</ul>
 	</div>
 
-        
-
-      </div>
-
-      <br/><br/>
-
-      
-        <p><img src="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/般若波罗蜜1.jpg" alt="image"></p>
-        
-          <a class="article-more-a" href="/2018/04/03/般若波罗蜜多心经/#more">more >></a>
-        
-      
-
-            
-    </div>
-
-    <div class="article-info article-info-index">
-
       
 
       
@@ -1113,15 +981,24 @@
       
       <div class="clearfix"></div>
     </div>
-
   </div>
 </article>
 
-
-
-
-
-
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
 
 
 
@@ -1257,6 +1134,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">VSCode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">c++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">OP预留分区</a>
               </li>
              
@@ -1270,14 +1155,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">STL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VSCode</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">c++</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1325,19 +1202,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ssdsim</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ssd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">编程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ssdsim</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ssd</a>
               </li>
              
               <li class="article-tag-list-item">
