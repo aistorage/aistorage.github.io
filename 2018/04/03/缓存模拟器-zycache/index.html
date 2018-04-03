@@ -9,7 +9,7 @@
   <title>缓存模拟器-zycache | Yu Zhang&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="为了方便实验，最近自己实现了一套缓存模拟器，以SNIA网站上提供的TRACE为输入，分别实现了FIFO,LRU,LFU,OPT,ARC等经典的缓存算法，整个模拟器通过C++实现，利用面向对象思想。代码见github">
-<meta name="keywords" content="存储,缓存,zycache">
+<meta name="keywords" content="存储,zycache,缓存">
 <meta property="og:type" content="article">
 <meta property="og:title" content="缓存模拟器-zycache">
 <meta property="og:url" content="http://aistorage.github.io/2018/04/03/缓存模拟器-zycache/index.html">
@@ -100,18 +100,26 @@
     <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
-  	<div class="overlay js-overlay" style="background: #4d4d4d"></div>
+  	<div class="overlay js-overlay" style="background: #4d4d4d">
+		
+			
+		
+  	</div>
 	<div class="btnctn js-mobile-btnctn">
   		<div class="slider-trigger list" q-on="click: openSlider(e)"><i class="icon icon-sort"></i></div>
 	</div>
 	<div class="intrude-less">
 		<header id="header" class="inner">
-			<div class="profilepic">
+			<div class="profilepic" style="margin-top:40px">
 				<img src="http://onx1obrfu.bkt.clouddn.com/joystorage/photo-mid/武汉1.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">Yu Zhang</h1>
 			</hgroup>
+
+			<h3 class="header-subtitle">早起 | 独处 | 自律</h3>
+			<p class="header-subtitle">yuzhang2016@hust.edu.cn</p>
+			
 			
 			
 			
@@ -172,9 +180,41 @@
   	<time datetime="2018-04-03T12:59:48.241Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
 </a>
         
+ 
+     
+
       </header>
+
     
     <div class="article-entry" itemprop="articleBody">
+   
+      <div style="margin-left:-5px">
+        
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">存储</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">zycache</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">缓存</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+        
+
+      </div>
+
+      <br/><br/>
+
       
         <p>为了方便实验，最近自己实现了一套缓存模拟器，以<a href="http://iotta.snia.org/tracetypes/3" target="_blank" rel="noopener">SNIA网站</a>上提供的TRACE为输入，分别实现了FIFO,LRU,LFU,OPT,ARC等经典的缓存算法，整个模拟器通过C++实现，利用面向对象思想。<a href="https://github.com/zydirtyfish/zycache.git" target="_blank" rel="noopener">代码见github</a></p>
 <a id="more"></a>
@@ -229,29 +269,24 @@
           </div>
           </a>
         </div>
-      
+        <center>
+          <p class="copyright">
+            本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次
+          </p>
+
+          <div style="font-size:12px;border-bottom: #ddd 1px solid; BORDER-LEFT: #ddd 1px solid; background-color: #deebf7; BORDER-TOP: #ddd 1px solid; BORDER-RIGHT: #ddd 1px solid;font-size:15px;width:90%">
+            <div style="margin-top:25px">
+	            <p>
+		            本文由&nbsp;<b>Yu Zhang</b>&nbsp;发表于&nbsp;<a href="https://joystorage.github.io/">Yu Zhang's Blog</a>&nbsp;,采用<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">署名-非商业性使用-禁止演绎 3.0</a>进行许可。<br/>
+		            非商业转载请注明作者及出处。商业转载请联系作者本人。
+	            </p>
+            </div>
+          </div>
+        </center>
+            
     </div>
+
     <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">存储</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">缓存</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">zycache</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
       
 
@@ -311,17 +346,18 @@
       
       <div class="clearfix"></div>
     </div>
+
   </div>
 </article>
 
   
 <nav id="article-nav">
   
-    <a href="/2018/04/03/机器学习 scikit_learn使用-1-安装/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/04/03/机器学习 scikit_learn使用-2-demo/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          机器学习 scikit_learn使用-1-安装
+          机器学习 scikit_learn使用-2-demo
         
       </div>
     </a>
@@ -335,43 +371,17 @@
 </nav>
 
 
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
+
 
 
 
   
-  
-  
-
-  
-  <div id="SOHUCS" sid="缓存模拟器-zycache" ></div> 
-<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
-<script type="text/javascript">
-    window.changyan.api.config({
-        appid: "true",
-        conf: "true"
-    });
-</script>
-</script>
+    <div class="duoshuo"></div>
   
 
-  
 
-  
+
+
 
 
           </div>
@@ -493,15 +503,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">C++</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">OP预留分区</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SSD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">C++</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -537,15 +547,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">filebench</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">blktrace</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">fio</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">filebench</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -581,15 +591,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">github pages</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">总线</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -598,6 +604,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文件系统</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">总线</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -641,7 +651,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">cache-sim</a>
+                <a href="javascript:void(0)" class="js-tag color3">zycache</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -649,7 +659,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">zycache</a>
+                <a href="javascript:void(0)" class="js-tag color5">cache-sim</a>
               </li>
             
             <div class="clearfix"></div>
