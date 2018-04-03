@@ -6,15 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hexo</title>
+  <title>SSD OP分区预留 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="SSD上的OP指的是用户不可操作的容量，大小为实际容量减去用户可用容量，OP区域一般被用于优化操作如：WL，GC和坏块映射等。我们知道OP区间对于SSD的性能影响非常大，会减少SSD的可用容量，有减少WA、提高寿命、性能的正面作用。">
+<meta name="keywords" content="OP预留分区,SSD">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SSD OP分区预留">
+<meta property="og:url" content="http://yoursite.com/2018/04/03/SSD OP分区预留/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="SSD上的OP指的是用户不可操作的容量，大小为实际容量减去用户可用容量，OP区域一般被用于优化操作如：WL，GC和坏块映射等。我们知道OP区间对于SSD的性能影响非常大，会减少SSD的可用容量，有减少WA、提高寿命、性能的正面作用。">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://article.fd.zol-img.com.cn/g5/M00/0D/05/ChMkJ1aqwLaIWY1PAABsS5guYNoAAH0KAPOV4cAAGxj026.jpg">
+<meta property="og:image" content="http://img0.pconline.com.cn/pconline/1212/12/3107731_1_thumb.jpg">
+<meta property="og:updated_time" content="2017-11-12T08:38:36.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="SSD OP分区预留">
+<meta name="twitter:description" content="SSD上的OP指的是用户不可操作的容量，大小为实际容量减去用户可用容量，OP区域一般被用于优化操作如：WL，GC和坏块映射等。我们知道OP区间对于SSD的性能影响非常大，会减少SSD的可用容量，有减少WA、提高寿命、性能的正面作用。">
+<meta name="twitter:image" content="http://article.fd.zol-img.com.cn/g5/M00/0D/05/ChMkJ1aqwLaIWY1PAABsS5guYNoAAH0KAPOV4cAAGxj026.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,306 +158,62 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-flashcache-3-底层存储模块" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-SSD OP分区预留" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/flashcache-3-底层存储模块/">flashcache-3-底层存储模块</a>
+    <h1 class="article-title" itemprop="name">
+      SSD OP分区预留
     </h1>
   
 
         
-        <a href="/2018/04/03/flashcache-3-底层存储模块/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.335Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
+        <a href="/2018/04/03/SSD OP分区预留/" class="archive-article-date">
+  	<time datetime="2018-04-03T12:59:48.163Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a href="http://www.cnblogs.com/wuchanming/p/3813491.html/" target="_blank" rel="noopener">转载自Jessica程序猿博客</a></p>
-<p>flashcache中跟底层存储模块分为以下两类：</p>
-<p>1）磁盘跟内存的交互</p>
-<p>2）磁盘跟磁盘之前的交互</p>
-<p>比如说读不命中时就是直接从磁盘读，属于第1种情况，那读命中呢？也是属于第1种情况，不过这时候是从SSD读。磁盘跟磁盘之间交互是用于写脏数据，将SSD中脏cache块拷贝到磁盘上去。现在介绍下两种情况使用的接口函数，这样后面在看读写流程时看到这两个函数就十分亲切了，并且清楚地知道数据是从哪里流向哪里。</p>
-        
-          <a class="article-more-a" href="/2018/04/03/flashcache-3-底层存储模块/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">flashcache</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">存储</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">块存储</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">转载</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/flashcache-3-底层存储模块/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-flashcache-4-修改与测试" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/flashcache-4-修改与测试/">flashcache-4-修改与测试</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/flashcache-4-修改与测试/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.335Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="系统安装"><a href="#系统安装" class="headerlink" title="系统安装"></a>系统安装</h1><p>由于flashcache在最新版本的ubuntu上会有兼容性问题（新版本ubuntu的linux内核版本高于4，ioctl被删除了，因此新版本ubuntu安装flashcache需要打补丁，比较麻烦），这里选用旧版本的ubuntu 14.10(utopic)</p>
-<p>安装<a href="http://old-releases.ubuntu.com/releases/" target="_blank" rel="noopener">ubuntu14.10 utopic</a></p>
-<p>这个版本的ubuntu官网之前的源失效了，可以修改源文件（具体参见<a href="http://forum.ubuntu.org.cn/viewtopic.php?f=77&amp;t=473404&amp;start=3" target="_blank" rel="noopener">求助 13.04 更新及升级</a>）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit /etc/apt/sources.list</span><br></pre></td></tr></table></figure>
-<p>然后修改为下面的源<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deb http://old-releases.ubuntu.com/ubuntu/ utopic main restricted universe multiverse</span><br></pre></td></tr></table></figure></p>
-        
-          <a class="article-more-a" href="/2018/04/03/flashcache-4-修改与测试/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">flashcache</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">存储</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">块存储</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/flashcache-4-修改与测试/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-flashcache-1-入门与安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/flashcache-1-入门与安装/">flashcache-1-入门与安装</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/flashcache-1-入门与安装/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.319Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最近，由于项目需要，在做关于flashcache的一些工作，主要涉及模块组织、元数据管理及数据分布、读写流程分析、数据在磁盘和cache(SSD)之间的调度、缺点及可优化方向等一些方面的分析研究。</p>
-        
-          <a class="article-more-a" href="/2018/04/03/flashcache-1-入门与安装/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">flashcache</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">存储</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">块存储</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">转载</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/flashcache-1-入门与安装/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-flashcache-2-调度模块及IO流程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/flashcache-2-调度模块及IO流程/">flashcache-2-调度模块及IO流程</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/flashcache-2-调度模块及IO流程/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.319Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="device-mapper"><a href="#device-mapper" class="headerlink" title="device mapper"></a>device mapper</h2><p>调度模块得先说说Device Mapper</p>
-<h3 id="device-mapper简介"><a href="#device-mapper简介" class="headerlink" title="device mapper简介"></a>device mapper简介</h3><ul>
-<li>Device Mapper（DM）是Linux2.6全面引入的块设备新构架，通过DM可以灵活地管理系统中所有的真实或虚拟的块设备。</li>
-<li>Device mapper在内核中作为一个块设备驱动被注册,包含三个重要的对象概念</li>
+        <p>SSD上的OP指的是用户不可操作的容量，大小为实际容量减去用户可用容量，OP区域一般被用于优化操作如：WL，GC和坏块映射等。我们知道OP区间对于SSD的性能影响非常大，会减少SSD的可用容量，有减少WA、提高寿命、性能的正面作用。</p>
+<a id="more"></a>
+<h4 id="OP一般分为三层"><a href="#OP一般分为三层" class="headerlink" title="OP一般分为三层"></a>OP一般分为三层</h4><p><img src="http://article.fd.zol-img.com.cn/g5/M00/0D/05/ChMkJ1aqwLaIWY1PAABsS5guYNoAAH0KAPOV4cAAGxj026.jpg" alt="image"></p>
+<ul>
+<li>第一层由于标称容量采用千进制为单位，而NAND颗粒容量单位为1024进制，由上图算法可知两者正好相差约7.37%，使得SSD必定要预留下7.37%。如果这款SSD标称128G，那会预留9.4G，那剩下约119G。</li>
+<li>第二层OP是否存在及容量大小取决于厂商设置，SSD厂商会根据自己的闪存颗粒品质，主控性能，质保年限，或是针对市场定位进行设置。这就看到了有一些标称128G的SSD实际只有112G。</li>
+<li>第三层OP是用户在日常使用可以分配，用户可以在自己初次分区时不把所有的SSD容量全部分满，可以留一些未分区的空间做OP。</li>
 </ul>
-        
-          <a class="article-more-a" href="/2018/04/03/flashcache-2-调度模块及IO流程/#more">more >></a>
-        
+<!-- more-->
+<h4 id="OP预留空间与性能的关系"><a href="#OP预留空间与性能的关系" class="headerlink" title="OP预留空间与性能的关系"></a>OP预留空间与性能的关系</h4><p>由SSD映射表的操作方式可知，删除后继续写入的数据在物理上会写入整个盘，在LBA上会覆盖被删除数据的地址。也就是说，同样写入59G数据，50G的盘已经包含了13G“无效”数据了。（那些被重映射到预留空间的数据，原地址数据就是“无效”、“过期”的）。所以说分区50G的SSD里LBA上数据“有效”的机会比分区59G要少，因为LBA容量小(分区小)，所以在做垃圾回收处理时，需要复制的“有效”数据也少了，自然效率就提高了。</p>
+<p>IBM苏黎世研究院早就指出，固态存储设备的空闲空间越多，写入放大系数就会越小，性能自然也就越高，反之亦然。如果90％的空间都被占用了，写入放大系数怎么也不会低于3.5，而如果能留下30％，系数最低可以只有0.2左右。<br><img src="http://img0.pconline.com.cn/pconline/1212/12/3107731_1_thumb.jpg" alt="image"></p>
+<p>更多内容参见博客<a href="http://diy.pconline.com.cn/ssd/study_ssd/1212/3107731_all.html" target="_blank" rel="noopener">《预留下25%最佳？SSD空间/性能关系探寻》</a></p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -460,15 +224,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">flashcache</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OP预留分区</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">存储</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">块存储</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SSD</a>
         		</li>
       		
 		</ul>
@@ -477,16 +237,84 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/flashcache-2-调度模块及IO流程/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/04/03/SSD OP分区预留/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2018/04/03/ssdsim学习1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          ssdsim学习1
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/04/03/shell脚本循环/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">shell脚本循环</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -506,508 +334,14 @@
 
 
 
-
-  
-    <article id="post-Amazon Elastic Block Store学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/Amazon Elastic Block Store学习/">Amazon Elastic Block Store学习</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/Amazon Elastic Block Store学习/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.304Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>通过网络访问，并且能独立于实例的生命周期而存在</li>
-<li>可用性和可靠性都非常高的存储卷</li>
-</ul>
-<h5 id="Amazon-EBS-提供最佳满足工作负载需求的三种卷类型"><a href="#Amazon-EBS-提供最佳满足工作负载需求的三种卷类型" class="headerlink" title="Amazon EBS 提供最佳满足工作负载需求的三种卷类型"></a>Amazon EBS 提供最佳满足工作负载需求的三种卷类型</h5><ul>
-<li><p>通用型 (SSD) </p>
-<p>  通用型 (SSD) 是一款以 SSD 为支持的全新通用型 EBS 卷类型，也是我们推荐给客户的默认类型。通用型 (SSD) 卷适用于各种工作负载，包括小型到中型数据库、开发和测试环境以及启动卷。</p>
-</li>
-<li><p>预配置 IOPS (SSD) </p>
-<p>  预配置 IOPS (SSD) 卷提供的存储具有一致性高和延迟低的特点，旨在为 I/O 密集型应用程序提供服务，例如大型关系数据库或 NoSQL 数据库。</p>
-</li>
-<li><p>磁性介质</p>
-<p>  与其他 EBS 卷类型相比，磁性介质卷可提供最低的每 GB 成本。对于数据不常被访问的工作负载以及看重低存储成本的应用来说，磁性介质卷是理想的选择。请参阅 Amazon Elastic Block Store 以了解详细信息。</p>
-</li>
-</ul>
-        
-          <a class="article-more-a" href="/2018/04/03/Amazon Elastic Block Store学习/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">aws</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">弹性块存储</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/Amazon Elastic Block Store学习/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-C++读取配置文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/C++读取配置文件/">C++读取配置文件</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/C++读取配置文件/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.304Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一个读取配置文件的工具类，代码如下<br>Config.h</p>
-        
-          <a class="article-more-a" href="/2018/04/03/C++读取配置文件/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/C++读取配置文件/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-用Git上传项目到 GitHub" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/用Git上传项目到 GitHub/">用Git上传项目到 GitHub</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/用Git上传项目到 GitHub/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.288Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>安装git，<a href="https://git-scm.com/download/" target="_blank" rel="noopener">git下载网址</a></p>
-<p>输入下列命令配置用户名邮箱</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;your name&quot;</span><br><span class="line">git config --global user.email &quot;your_email@youremail.com&quot;</span><br></pre></td></tr></table></figure>
-<p>查看配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config -l</span><br></pre></td></tr></table></figure>
-<p>重置配置（重置后需要重启电脑）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --unset --global</span><br></pre></td></tr></table></figure></p>
-<p>提交</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add README.md</span><br><span class="line">git commit -m &quot;提交注释&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-<p>更加详细使用可以参见<a href="http://www.jianshu.com/p/0fce531dba31" target="_blank" rel="noopener">用 Git 上传项目到 GitHub</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">github</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/用Git上传项目到 GitHub/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-在github pages上建站" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/在github pages上建站/">在github pages上建站</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/在github pages上建站/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.288Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>好记性不如烂笔头，计算机科学日新月异，养成写博客的习惯对于程序猿来说尤为关键，于是便搭了自己的博客！</p>
-        
-          <a class="article-more-a" href="/2018/04/03/在github pages上建站/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">github pages</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/在github pages上建站/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-一叶孤舟，自强不息" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/一叶孤舟，自强不息/">一叶孤舟，自强不息</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/一叶孤舟，自强不息/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.272Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/自强不息.png" alt="image"></p>
-<p>这一年，感觉是二十多年来成长最多的一年，并不是提升了多少专业技能，看了多少论文，而是看透了很多事，认识到了自身的诸多不足，这一点得感谢老板的谆谆教诲。</p>
-        
-          <a class="article-more-a" href="/2018/04/03/一叶孤舟，自强不息/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/一叶孤舟，自强不息/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-排队论在ad hoc无线网中的应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/排队论在ad hoc无线网中的应用/">排队论在ad hoc无线网中的应用</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/排队论在ad hoc无线网中的应用/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.272Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Applications-in-Analysis-of-Ad-Hoc-Networks-using-Queuing-Theory"><a href="#Applications-in-Analysis-of-Ad-Hoc-Networks-using-Queuing-Theory" class="headerlink" title="Applications in Analysis of Ad Hoc Networks using Queuing Theory"></a>Applications in Analysis of Ad Hoc Networks using Queuing Theory</h1><blockquote>
-<p>Yu Zhang</p>
-</blockquote>
-<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><p> Queuing problems are common scenarios in our daily life. From industrial manufacture to daily queuing, we can never leave this topic. Ad Hoc wireless networks are new kinds of networks. It has the advantages of high flexibility and extensibility, which are applied to our daily life gradually. The paper lists the applications in performance analysis of Ad Hoc networks via using queuing theory, and discusses their pros and cons as well as their development directions. At the end of the article, we reproduce some of the experiments via using MATLAB simulators and give a detailed discussion on the results.</p>
-        
-          <a class="article-more-a" href="/2018/04/03/排队论在ad hoc无线网中的应用/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">排队论</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ad hoc无线网</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/排队论在ad hoc无线网中的应用/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -1030,8 +364,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

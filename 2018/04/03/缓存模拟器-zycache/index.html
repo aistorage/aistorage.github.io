@@ -6,15 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hexo</title>
+  <title>缓存模拟器-zycache | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="为了方便实验，最近自己实现了一套缓存模拟器，以SNIA网站上提供的TRACE为输入，分别实现了FIFO,LRU,LFU,OPT,ARC等经典的缓存算法，整个模拟器通过C++实现，利用面向对象思想。代码见github">
+<meta name="keywords" content="存储,缓存,zycache">
+<meta property="og:type" content="article">
+<meta property="og:title" content="缓存模拟器-zycache">
+<meta property="og:url" content="http://yoursite.com/2018/04/03/缓存模拟器-zycache/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="为了方便实验，最近自己实现了一套缓存模拟器，以SNIA网站上提供的TRACE为输入，分别实现了FIFO,LRU,LFU,OPT,ARC等经典的缓存算法，整个模拟器通过C++实现，利用面向对象思想。代码见github">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/缓存模拟器-3.png">
+<meta property="og:image" content="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/缓存模拟器-2.jpg">
+<meta property="og:updated_time" content="2017-05-21T12:00:28.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="缓存模拟器-zycache">
+<meta name="twitter:description" content="为了方便实验，最近自己实现了一套缓存模拟器，以SNIA网站上提供的TRACE为输入，分别实现了FIFO,LRU,LFU,OPT,ARC等经典的缓存算法，整个模拟器通过C++实现，利用面向对象思想。代码见github">
+<meta name="twitter:image" content="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/缓存模拟器-3.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,806 +158,69 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-flashcache-3-底层存储模块" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-缓存模拟器-zycache" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/flashcache-3-底层存储模块/">flashcache-3-底层存储模块</a>
+    <h1 class="article-title" itemprop="name">
+      缓存模拟器-zycache
     </h1>
   
 
         
-        <a href="/2018/04/03/flashcache-3-底层存储模块/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.335Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
+        <a href="/2018/04/03/缓存模拟器-zycache/" class="archive-article-date">
+  	<time datetime="2018-04-03T12:59:48.241Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a href="http://www.cnblogs.com/wuchanming/p/3813491.html/" target="_blank" rel="noopener">转载自Jessica程序猿博客</a></p>
-<p>flashcache中跟底层存储模块分为以下两类：</p>
-<p>1）磁盘跟内存的交互</p>
-<p>2）磁盘跟磁盘之前的交互</p>
-<p>比如说读不命中时就是直接从磁盘读，属于第1种情况，那读命中呢？也是属于第1种情况，不过这时候是从SSD读。磁盘跟磁盘之间交互是用于写脏数据，将SSD中脏cache块拷贝到磁盘上去。现在介绍下两种情况使用的接口函数，这样后面在看读写流程时看到这两个函数就十分亲切了，并且清楚地知道数据是从哪里流向哪里。</p>
-        
-          <a class="article-more-a" href="/2018/04/03/flashcache-3-底层存储模块/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">flashcache</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">存储</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">块存储</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">转载</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/flashcache-3-底层存储模块/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-flashcache-4-修改与测试" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/flashcache-4-修改与测试/">flashcache-4-修改与测试</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/flashcache-4-修改与测试/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.335Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="系统安装"><a href="#系统安装" class="headerlink" title="系统安装"></a>系统安装</h1><p>由于flashcache在最新版本的ubuntu上会有兼容性问题（新版本ubuntu的linux内核版本高于4，ioctl被删除了，因此新版本ubuntu安装flashcache需要打补丁，比较麻烦），这里选用旧版本的ubuntu 14.10(utopic)</p>
-<p>安装<a href="http://old-releases.ubuntu.com/releases/" target="_blank" rel="noopener">ubuntu14.10 utopic</a></p>
-<p>这个版本的ubuntu官网之前的源失效了，可以修改源文件（具体参见<a href="http://forum.ubuntu.org.cn/viewtopic.php?f=77&amp;t=473404&amp;start=3" target="_blank" rel="noopener">求助 13.04 更新及升级</a>）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit /etc/apt/sources.list</span><br></pre></td></tr></table></figure>
-<p>然后修改为下面的源<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deb http://old-releases.ubuntu.com/ubuntu/ utopic main restricted universe multiverse</span><br></pre></td></tr></table></figure></p>
-        
-          <a class="article-more-a" href="/2018/04/03/flashcache-4-修改与测试/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">flashcache</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">存储</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">块存储</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/flashcache-4-修改与测试/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-flashcache-1-入门与安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/flashcache-1-入门与安装/">flashcache-1-入门与安装</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/flashcache-1-入门与安装/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.319Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最近，由于项目需要，在做关于flashcache的一些工作，主要涉及模块组织、元数据管理及数据分布、读写流程分析、数据在磁盘和cache(SSD)之间的调度、缺点及可优化方向等一些方面的分析研究。</p>
-        
-          <a class="article-more-a" href="/2018/04/03/flashcache-1-入门与安装/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">flashcache</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">存储</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">块存储</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">转载</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/flashcache-1-入门与安装/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-flashcache-2-调度模块及IO流程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/flashcache-2-调度模块及IO流程/">flashcache-2-调度模块及IO流程</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/flashcache-2-调度模块及IO流程/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.319Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="device-mapper"><a href="#device-mapper" class="headerlink" title="device mapper"></a>device mapper</h2><p>调度模块得先说说Device Mapper</p>
-<h3 id="device-mapper简介"><a href="#device-mapper简介" class="headerlink" title="device mapper简介"></a>device mapper简介</h3><ul>
-<li>Device Mapper（DM）是Linux2.6全面引入的块设备新构架，通过DM可以灵活地管理系统中所有的真实或虚拟的块设备。</li>
-<li>Device mapper在内核中作为一个块设备驱动被注册,包含三个重要的对象概念</li>
-</ul>
-        
-          <a class="article-more-a" href="/2018/04/03/flashcache-2-调度模块及IO流程/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">flashcache</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">存储</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">块存储</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/flashcache-2-调度模块及IO流程/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Amazon Elastic Block Store学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/Amazon Elastic Block Store学习/">Amazon Elastic Block Store学习</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/Amazon Elastic Block Store学习/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.304Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>通过网络访问，并且能独立于实例的生命周期而存在</li>
-<li>可用性和可靠性都非常高的存储卷</li>
-</ul>
-<h5 id="Amazon-EBS-提供最佳满足工作负载需求的三种卷类型"><a href="#Amazon-EBS-提供最佳满足工作负载需求的三种卷类型" class="headerlink" title="Amazon EBS 提供最佳满足工作负载需求的三种卷类型"></a>Amazon EBS 提供最佳满足工作负载需求的三种卷类型</h5><ul>
-<li><p>通用型 (SSD) </p>
-<p>  通用型 (SSD) 是一款以 SSD 为支持的全新通用型 EBS 卷类型，也是我们推荐给客户的默认类型。通用型 (SSD) 卷适用于各种工作负载，包括小型到中型数据库、开发和测试环境以及启动卷。</p>
-</li>
-<li><p>预配置 IOPS (SSD) </p>
-<p>  预配置 IOPS (SSD) 卷提供的存储具有一致性高和延迟低的特点，旨在为 I/O 密集型应用程序提供服务，例如大型关系数据库或 NoSQL 数据库。</p>
-</li>
-<li><p>磁性介质</p>
-<p>  与其他 EBS 卷类型相比，磁性介质卷可提供最低的每 GB 成本。对于数据不常被访问的工作负载以及看重低存储成本的应用来说，磁性介质卷是理想的选择。请参阅 Amazon Elastic Block Store 以了解详细信息。</p>
-</li>
-</ul>
-        
-          <a class="article-more-a" href="/2018/04/03/Amazon Elastic Block Store学习/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">aws</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">弹性块存储</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/Amazon Elastic Block Store学习/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-C++读取配置文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/C++读取配置文件/">C++读取配置文件</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/C++读取配置文件/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.304Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一个读取配置文件的工具类，代码如下<br>Config.h</p>
-        
-          <a class="article-more-a" href="/2018/04/03/C++读取配置文件/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/C++读取配置文件/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-用Git上传项目到 GitHub" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/用Git上传项目到 GitHub/">用Git上传项目到 GitHub</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/用Git上传项目到 GitHub/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.288Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>安装git，<a href="https://git-scm.com/download/" target="_blank" rel="noopener">git下载网址</a></p>
-<p>输入下列命令配置用户名邮箱</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;your name&quot;</span><br><span class="line">git config --global user.email &quot;your_email@youremail.com&quot;</span><br></pre></td></tr></table></figure>
-<p>查看配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config -l</span><br></pre></td></tr></table></figure>
-<p>重置配置（重置后需要重启电脑）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --unset --global</span><br></pre></td></tr></table></figure></p>
-<p>提交</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add README.md</span><br><span class="line">git commit -m &quot;提交注释&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-<p>更加详细使用可以参见<a href="http://www.jianshu.com/p/0fce531dba31" target="_blank" rel="noopener">用 Git 上传项目到 GitHub</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">github</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/用Git上传项目到 GitHub/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-在github pages上建站" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/在github pages上建站/">在github pages上建站</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/在github pages上建站/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.288Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>好记性不如烂笔头，计算机科学日新月异，养成写博客的习惯对于程序猿来说尤为关键，于是便搭了自己的博客！</p>
-        
-          <a class="article-more-a" href="/2018/04/03/在github pages上建站/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">github pages</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/在github pages上建站/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-一叶孤舟，自强不息" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/一叶孤舟，自强不息/">一叶孤舟，自强不息</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/一叶孤舟，自强不息/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.272Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/自强不息.png" alt="image"></p>
-<p>这一年，感觉是二十多年来成长最多的一年，并不是提升了多少专业技能，看了多少论文，而是看透了很多事，认识到了自身的诸多不足，这一点得感谢老板的谆谆教诲。</p>
-        
-          <a class="article-more-a" href="/2018/04/03/一叶孤舟，自强不息/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/一叶孤舟，自强不息/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-排队论在ad hoc无线网中的应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/排队论在ad hoc无线网中的应用/">排队论在ad hoc无线网中的应用</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/排队论在ad hoc无线网中的应用/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.272Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Applications-in-Analysis-of-Ad-Hoc-Networks-using-Queuing-Theory"><a href="#Applications-in-Analysis-of-Ad-Hoc-Networks-using-Queuing-Theory" class="headerlink" title="Applications in Analysis of Ad Hoc Networks using Queuing Theory"></a>Applications in Analysis of Ad Hoc Networks using Queuing Theory</h1><blockquote>
-<p>Yu Zhang</p>
+        <p>为了方便实验，最近自己实现了一套缓存模拟器，以<a href="http://iotta.snia.org/tracetypes/3" target="_blank" rel="noopener">SNIA网站</a>上提供的TRACE为输入，分别实现了FIFO,LRU,LFU,OPT,ARC等经典的缓存算法，整个模拟器通过C++实现，利用面向对象思想。<a href="https://github.com/zydirtyfish/zycache.git" target="_blank" rel="noopener">代码见github</a></p>
+<a id="more"></a>
+<p>运行的大致结果如下：</p>
+<p><img src="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/缓存模拟器-3.png" alt="image"></p>
+<p>下面贴出来zy-cache的LRU和OPT算法的实现，其中OPT根据自己的理解分别实现了时间最优算法optt和空间最优算法opts，分别试用于电脑内存空间充足和不足的场景使用。</p>
+<blockquote>
+<p>LRU</p>
 </blockquote>
-<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><p> Queuing problems are common scenarios in our daily life. From industrial manufacture to daily queuing, we can never leave this topic. Ad Hoc wireless networks are new kinds of networks. It has the advantages of high flexibility and extensibility, which are applied to our daily life gradually. The paper lists the applications in performance analysis of Ad Hoc networks via using queuing theory, and discusses their pros and cons as well as their development directions. At the end of the article, we reproduce some of the experiments via using MATLAB simulators and give a detailed discussion on the results.</p>
-        
-          <a class="article-more-a" href="/2018/04/03/排队论在ad hoc无线网中的应用/#more">more >></a>
-        
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br></pre></td><td class="code"><pre><span class="line">class lru : public algorithm</span><br><span class="line">&#123;</span><br><span class="line">private://缓存基本信息</span><br><span class="line">    </span><br><span class="line">    struct list_entry *lru_hot; //lru的hot端</span><br><span class="line">    struct list_entry *lru_cold; //lru的cold端</span><br><span class="line">    unordered_map&lt;u_int64_t,struct list_entry *&gt; cache_map; //缓存索引</span><br><span class="line"></span><br><span class="line">public: //缓存基本操作</span><br><span class="line"></span><br><span class="line">    //初始化</span><br><span class="line">    lru(int cache_s, int block_s, int wt)</span><br><span class="line">    &#123;</span><br><span class="line">        strcpy(name,&quot;lru&quot;);</span><br><span class="line">        </span><br><span class="line">        outfile = NULL;</span><br><span class="line">        outfile = open_file(&quot;lru.out&quot;);</span><br><span class="line"></span><br><span class="line">        cache_size = cache_s;</span><br><span class="line">        block_size = block_s;</span><br><span class="line">        write_type = wt;</span><br><span class="line">        block_num = cache_size / (512*block_size) ;</span><br><span class="line">        hit_num = 0;</span><br><span class="line">        total_num = 0;</span><br><span class="line">        read_num = 0;</span><br><span class="line">        ssd_write = 0;</span><br><span class="line">        lru_cold = lru_hot = NULL;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ~lru()</span><br><span class="line">    &#123;</span><br><span class="line">        //销毁lru链表</span><br><span class="line">        while(lru_hot != NULL)</span><br><span class="line">        &#123;</span><br><span class="line">            struct list_entry *le1 = lru_hot;</span><br><span class="line">            lru_hot = le1-&gt;next;</span><br><span class="line">            free(le1);</span><br><span class="line">            le1 = NULL;</span><br><span class="line">        &#125;</span><br><span class="line">        lru_hot = lru_cold = NULL;</span><br><span class="line"></span><br><span class="line">        //销毁map</span><br><span class="line">        cache_map.clear();</span><br><span class="line">        </span><br><span class="line">        close_file(outfile);</span><br><span class="line">        outfile = NULL;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void map_operation(u_int64_t key, int io_type,struct trace_inf *ti)</span><br><span class="line">    &#123;</span><br><span class="line">        unordered_map&lt;u_int64_t,struct list_entry *&gt;::iterator got = cache_map.find(key);</span><br><span class="line"></span><br><span class="line">        if(got == cache_map.end())</span><br><span class="line">        &#123;//未命中</span><br><span class="line">            //cout &lt;&lt; cache_map.size() &lt;&lt; endl;</span><br><span class="line">            if(cache_map.size() == block_num)</span><br><span class="line">            &#123;//缓存满，需要替换</span><br><span class="line"></span><br><span class="line">                out_put(ti,lru_cold-&gt;lbn,&quot;Write&quot;);//模拟替换时SSD的写</span><br><span class="line"></span><br><span class="line">                u_int64_t id_del = lru_cold-&gt;block_id;</span><br><span class="line">                cache_map.erase(id_del);</span><br><span class="line"></span><br><span class="line">                lru_cold-&gt;next = lru_hot;</span><br><span class="line">                lru_hot-&gt;pre = lru_cold;</span><br><span class="line">                lru_hot = lru_cold;</span><br><span class="line">                lru_cold = lru_cold-&gt;pre;</span><br><span class="line">                lru_cold-&gt;next = lru_hot-&gt;pre = NULL;</span><br><span class="line">                lru_hot-&gt;block_id = key;</span><br><span class="line">                lru_hot-&gt;access_cnt = 1;</span><br><span class="line">                lru_hot-&gt;pre_access = total_num;</span><br><span class="line">                cache_map[key] = lru_hot;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                struct list_entry *  le = (struct list_entry *)malloc(sizeof(list_entry));</span><br><span class="line"></span><br><span class="line">                le-&gt;lbn = cache_map.size();</span><br><span class="line"></span><br><span class="line">                if(lru_hot == NULL)</span><br><span class="line">                &#123;</span><br><span class="line">                    le-&gt;next = le-&gt;pre = NULL;</span><br><span class="line">                    le-&gt;block_id = key; </span><br><span class="line">                    le-&gt;access_cnt = 1;</span><br><span class="line">                    le-&gt;pre_access = total_num;</span><br><span class="line">                    lru_hot = lru_cold = le;</span><br><span class="line">                    cache_map[key] = le;</span><br><span class="line"></span><br><span class="line">                    out_put(ti,le-&gt;lbn,&quot;Write&quot;);//模拟替换时SSD的写</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    le-&gt;pre = NULL;</span><br><span class="line">                    le-&gt;block_id = key; </span><br><span class="line">                    le-&gt;access_cnt = 1;</span><br><span class="line">                    le-&gt;pre_access = total_num;</span><br><span class="line"></span><br><span class="line">                    le-&gt;next = lru_hot;</span><br><span class="line">                    lru_hot-&gt;pre = le;</span><br><span class="line">                    lru_hot = le;</span><br><span class="line">                    cache_map[key] = le;</span><br><span class="line">                    </span><br><span class="line">                    out_put(ti,le-&gt;lbn,&quot;Write&quot;);//模拟替换时SSD的写</span><br><span class="line">                &#125;</span><br><span class="line">                le = NULL;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;//命中</span><br><span class="line">            struct list_entry *  le = got-&gt;second;</span><br><span class="line">            if(lru_hot != le)</span><br><span class="line">            &#123;</span><br><span class="line">                le-&gt;pre-&gt;next = le-&gt;next;</span><br><span class="line"></span><br><span class="line">                if(le-&gt;next != NULL)&#123;</span><br><span class="line">                    le-&gt;next-&gt;pre = le-&gt;pre;</span><br><span class="line">                &#125;else&#123;</span><br><span class="line">                    lru_cold = le-&gt;pre;</span><br><span class="line">                    lru_cold-&gt;next = NULL;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                le-&gt;next = lru_hot;</span><br><span class="line">                lru_hot-&gt;pre = le;</span><br><span class="line">                le-&gt;pre = NULL;</span><br><span class="line">                lru_hot = le;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            le-&gt;access_cnt++;</span><br><span class="line">            le-&gt;pre_access = total_num;</span><br><span class="line">            hit_num++;</span><br><span class="line"></span><br><span class="line">            if(io_type == 1)&#123;</span><br><span class="line">                //写与读不同的地方</span><br><span class="line">                 out_put(ti,le-&gt;lbn,&quot;Write&quot;);//模拟替换时SSD的写</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                out_put(ti,le-&gt;lbn,&quot;Read&quot;);//模拟替换时SSD的写</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            le = NULL;</span><br><span class="line">        &#125;</span><br><span class="line">       </span><br><span class="line">//lru链表测试</span><br><span class="line">#if DEBUG</span><br><span class="line">    struct list_entry *le1 = lru_hot;</span><br><span class="line">    while(le1 != NULL)&#123;</span><br><span class="line">        cout &lt;&lt; le1-&gt;block_id &lt;&lt; &quot;\t&quot;;</span><br><span class="line">        le1 = le1-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>opt</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;list&gt;</span><br><span class="line"></span><br><span class="line">struct next_acc</span><br><span class="line">&#123;</span><br><span class="line">    u_int64_t num;</span><br><span class="line">    struct next_acc *next;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">struct map_entry</span><br><span class="line">&#123;</span><br><span class="line">    int acc_num;</span><br><span class="line">    struct next_acc *head;</span><br><span class="line">    struct next_acc *tail;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class optt : public algorithm</span><br><span class="line">&#123;   //opt时间最优算法</span><br><span class="line">    //且处理时间为log(n)级别</span><br><span class="line">    //得到opt绝对最优解，内存空间充足情况下使用</span><br><span class="line"></span><br><span class="line">private://缓存基本信息</span><br><span class="line"></span><br><span class="line">    unordered_map&lt;u_int64_t,struct list_entry *&gt; cache_map; //缓存索引</span><br><span class="line">    struct list_entry cache_entry[block_num_conf];</span><br><span class="line">    unordered_map&lt;u_int64_t,struct map_entry *&gt; io_map; //预处理map</span><br><span class="line">    u_int64_t pre_cnt;</span><br><span class="line">    u_int64_t total_rec;</span><br><span class="line"></span><br><span class="line">public: //缓存基本操作</span><br><span class="line"></span><br><span class="line">    //初始化</span><br><span class="line">    optt(int cache_s, int block_s, int wt)</span><br><span class="line">    &#123;</span><br><span class="line">        outfile = NULL;</span><br><span class="line">        outfile = open_file(&quot;opt.out&quot;);</span><br><span class="line">        strcpy(name,&quot;opt&quot;);</span><br><span class="line">        cache_size = cache_s;</span><br><span class="line">        block_size = block_s;</span><br><span class="line">        write_type = wt;</span><br><span class="line">        block_num = cache_size / (512*block_size) ;</span><br><span class="line">        hit_num = 0;</span><br><span class="line">        total_num = 0;</span><br><span class="line">        read_num = 0;</span><br><span class="line">        ssd_write = 0;</span><br><span class="line">        pre_cnt = 0;</span><br><span class="line">        total_rec = 1.8446744*1e19;</span><br><span class="line">        //memset(cache_entry,0xff,block_num_conf);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ~optt()</span><br><span class="line">    &#123;</span><br><span class="line">        //销毁map</span><br><span class="line">        io_map.clear();</span><br><span class="line">        cache_map.clear();</span><br><span class="line">        </span><br><span class="line">        close_file(outfile);</span><br><span class="line">        outfile = NULL;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void map_operation(u_int64_t key, int io_type,struct trace_inf *ti)</span><br><span class="line">    &#123;</span><br><span class="line">        unordered_map&lt;u_int64_t,struct list_entry *&gt;::iterator got = cache_map.find(key);</span><br><span class="line"></span><br><span class="line">        if(got == cache_map.end())</span><br><span class="line">        &#123;//未命中</span><br><span class="line">            int map_size = cache_map.size();</span><br><span class="line">            //cout &lt;&lt; cache_map.size() &lt;&lt; endl;</span><br><span class="line">            if(map_size == block_num)</span><br><span class="line">            &#123;//缓存满，需要替换</span><br><span class="line"></span><br><span class="line">                int victim = find_victim();</span><br><span class="line">                u_int64_t id_del = cache_entry[victim].block_id;</span><br><span class="line">                cache_map.erase(id_del);</span><br><span class="line"></span><br><span class="line">                cache_entry[victim].block_id = key;</span><br><span class="line">                cache_entry[victim].access_cnt = 1;</span><br><span class="line">                cache_entry[victim].pre_access = total_num;</span><br><span class="line">                cache_entry[victim].next_access = find_next(key);</span><br><span class="line"></span><br><span class="line">                cache_map[key] = &amp;cache_entry[victim];</span><br><span class="line"></span><br><span class="line">                out_put(ti,victim,&quot;Write&quot;);//模拟替换时SSD的写</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                cache_entry[map_size].block_id = key;</span><br><span class="line">                cache_entry[map_size].access_cnt = 1;</span><br><span class="line">                cache_entry[map_size].pre_access = total_num;</span><br><span class="line">                cache_entry[map_size].next_access = find_next(key);</span><br><span class="line">                cache_entry[map_size].lbn = map_size;</span><br><span class="line">                </span><br><span class="line">                cache_map[key] = &amp;cache_entry[map_size];</span><br><span class="line"></span><br><span class="line">                out_put(ti,map_size,&quot;Write&quot;);//模拟替换时SSD的写</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;//命中</span><br><span class="line">            struct list_entry *  le = got-&gt;second;</span><br><span class="line">            le-&gt;access_cnt++;</span><br><span class="line">            le-&gt;pre_access = total_num;</span><br><span class="line">            le-&gt;next_access = find_next(key);</span><br><span class="line">            hit_num++;</span><br><span class="line">            if(io_type == 1)&#123;</span><br><span class="line">                //写与读不同的地方</span><br><span class="line">                out_put(ti,le-&gt;lbn,&quot;Write&quot;);//模拟替换时SSD的写  </span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                out_put(ti,le-&gt;lbn,&quot;Read&quot;);//模拟替换时SSD的写</span><br><span class="line">            &#125;</span><br><span class="line">            le = NULL;</span><br><span class="line">        &#125;</span><br><span class="line">       </span><br><span class="line">//lru链表测试</span><br><span class="line">#if DEBUG</span><br><span class="line">    int cs = cache_map.size();</span><br><span class="line">    for(int i=0 ; i &lt; cs ; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; cache_entry[i].block_id &lt;&lt; &quot;\t&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">#endif</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    int find_victim()</span><br><span class="line">    &#123;</span><br><span class="line">        </span><br><span class="line">        int cs = cache_map.size();</span><br><span class="line">        int result = 0;</span><br><span class="line">        int max_next = cache_entry[0].next_access;</span><br><span class="line">        //cout &lt;&lt; cs &lt;&lt; &quot;\t&quot;;</span><br><span class="line">        for(int i=0 ; i &lt; cs ; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            //cout &lt;&lt; cache_entry[i].block_id &lt;&lt; &quot;\t&quot;;</span><br><span class="line">            if(cache_entry[i].next_access &gt; max_next)</span><br><span class="line">            &#123;</span><br><span class="line">                max_next = cache_entry[i].next_access;</span><br><span class="line">                result = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    u_int64_t find_next(u_int64_t block_id)</span><br><span class="line">    &#123;</span><br><span class="line">        </span><br><span class="line">        unordered_map&lt;u_int64_t,struct map_entry*&gt;::iterator it = io_map.find(block_id);</span><br><span class="line">        struct next_acc *nt = NULL;</span><br><span class="line">        struct map_entry *me = NULL;</span><br><span class="line">        if(it != io_map.end())</span><br><span class="line">        &#123;</span><br><span class="line">            me = it-&gt;second;</span><br><span class="line">            if(me-&gt;head == NULL)</span><br><span class="line">            &#123;</span><br><span class="line">                return total_rec + 1;</span><br><span class="line">            &#125;</span><br><span class="line">            else&#123;</span><br><span class="line">                nt = me-&gt;head;</span><br><span class="line">                me-&gt;head = nt-&gt;next;</span><br><span class="line">                delete nt;</span><br><span class="line">                if(me-&gt;head != NULL)</span><br><span class="line">                &#123;</span><br><span class="line">                    return me-&gt;head-&gt;num;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    return total_rec + 1;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; &quot;Severe Error!!!&quot; &lt;&lt; endl;</span><br><span class="line">            exit(0);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //初始化io_list</span><br><span class="line">    void init_io_list(struct trace_inf *ti)</span><br><span class="line">    &#123;</span><br><span class="line">        struct bio *head = div_block(ti);</span><br><span class="line">        while(head != NULL)</span><br><span class="line">        &#123;</span><br><span class="line">            pre_cnt++;</span><br><span class="line">            unordered_map&lt;u_int64_t,struct map_entry*&gt;::iterator it = io_map.find(head-&gt;block_id);</span><br><span class="line">            struct next_acc *nt = NULL;</span><br><span class="line">            struct map_entry *me = NULL;</span><br><span class="line"></span><br><span class="line">            if(it == io_map.end())</span><br><span class="line">            &#123;</span><br><span class="line">                me = (struct map_entry*)malloc(sizeof(struct map_entry));</span><br><span class="line">                nt = (struct next_acc *)malloc(sizeof(struct next_acc));</span><br><span class="line">                nt-&gt;num = pre_cnt;</span><br><span class="line">                nt-&gt;next = NULL;</span><br><span class="line">                me-&gt;head = me-&gt;tail = nt;</span><br><span class="line">                me-&gt;acc_num = 1;</span><br><span class="line">                io_map[head-&gt;block_id] = me;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                nt = (struct next_acc *)malloc(sizeof(struct next_acc));</span><br><span class="line">                nt-&gt;num = pre_cnt;</span><br><span class="line">                nt-&gt;next = NULL;</span><br><span class="line">                me = it-&gt;second;</span><br><span class="line">                me-&gt;tail-&gt;next = nt;</span><br><span class="line">                me-&gt;tail = nt;</span><br><span class="line">                me-&gt;acc_num++;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            head = head-&gt;next;</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void show_io_list()&#123;</span><br><span class="line">        struct next_acc *nt = NULL;</span><br><span class="line">        struct map_entry *me = NULL;</span><br><span class="line">        for ( unordered_map&lt;u_int64_t,struct map_entry*&gt;::iterator it=io_map.begin(); it != io_map.end(); ++it)</span><br><span class="line">        &#123;</span><br><span class="line">            me = it-&gt;second;</span><br><span class="line">            nt = me-&gt;head;</span><br><span class="line">    </span><br><span class="line">            cout &lt;&lt; it-&gt;first &lt;&lt; &quot;\t&quot; &lt;&lt; me-&gt;acc_num &lt;&lt; &quot;\t&quot;;</span><br><span class="line">            while(nt != NULL)</span><br><span class="line">            &#123;</span><br><span class="line">                cout &lt;&lt; nt-&gt;num &lt;&lt; &quot;\t&quot;;</span><br><span class="line">                nt = nt-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            cout &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class opts : public algorithm</span><br><span class="line">&#123;   //opt空间最优算法，可以通过OPT_DEGREE调整算法级别，得到的知识opt的一个次优解</span><br><span class="line">    //OPT_DEGREE为1-10的整数，在conf.h中进行设置，数越大越接近理论最优，但是运行时间也越长</span><br><span class="line">    //内存空间有限的情况下使用</span><br><span class="line">    //时间复杂度为n*n</span><br><span class="line"></span><br><span class="line">private://缓存基本信息</span><br><span class="line"></span><br><span class="line">    unordered_map&lt;u_int64_t,struct list_entry *&gt; cache_map; //缓存索引</span><br><span class="line">    struct list_entry cache_entry[block_num_conf];</span><br><span class="line">    list&lt;u_int64_t&gt; io_list;</span><br><span class="line"></span><br><span class="line">public: //缓存基本操作</span><br><span class="line"></span><br><span class="line">    //初始化</span><br><span class="line">    opts(int cache_s, int block_s, int wt)</span><br><span class="line">    &#123;</span><br><span class="line">        strcpy(name,&quot;opt&quot;);</span><br><span class="line">        cache_size = cache_s;</span><br><span class="line">        block_size = block_s;</span><br><span class="line">        write_type = wt;</span><br><span class="line">        block_num = cache_size / (512*block_size) ;</span><br><span class="line">        hit_num = 0;</span><br><span class="line">        total_num = 0;</span><br><span class="line">        read_num = 0;</span><br><span class="line">        ssd_write = 0;</span><br><span class="line">        //memset(cache_entry,0xff,block_num_conf);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ~opts()</span><br><span class="line">    &#123;</span><br><span class="line">        //销毁map</span><br><span class="line">        cache_map.clear();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void map_operation(u_int64_t key, int io_type,struct trace_inf *ti)</span><br><span class="line">    &#123;</span><br><span class="line">        unordered_map&lt;u_int64_t,struct list_entry *&gt;::iterator got = cache_map.find(key);</span><br><span class="line"></span><br><span class="line">        if(got == cache_map.end())</span><br><span class="line">        &#123;//未命中</span><br><span class="line">            int map_size = cache_map.size();</span><br><span class="line">            //cout &lt;&lt; cache_map.size() &lt;&lt; endl;</span><br><span class="line">            if(map_size == block_num)</span><br><span class="line">            &#123;//缓存满，需要替换</span><br><span class="line"></span><br><span class="line">                int victim = find_victim();</span><br><span class="line">                u_int64_t id_del = cache_entry[victim].block_id;</span><br><span class="line">                cache_map.erase(id_del);</span><br><span class="line"></span><br><span class="line">                cache_entry[victim].block_id = key;</span><br><span class="line">                cache_entry[victim].access_cnt = 1;</span><br><span class="line">                cache_entry[victim].pre_access = total_num;</span><br><span class="line">                cache_entry[victim].next_access = find_next(key);</span><br><span class="line"></span><br><span class="line">                cache_map[key] = &amp;cache_entry[victim];</span><br><span class="line"></span><br><span class="line">                out_put(ti,victim,&quot;Write&quot;);//模拟替换时SSD的写</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                cache_entry[map_size].block_id = key;</span><br><span class="line">                cache_entry[map_size].access_cnt = 1;</span><br><span class="line">                cache_entry[map_size].pre_access = total_num;</span><br><span class="line">                cache_entry[map_size].next_access = find_next(key);</span><br><span class="line">                cache_entry[map_size].lbn = map_size;</span><br><span class="line"></span><br><span class="line">                cache_map[key] = &amp;cache_entry[map_size];</span><br><span class="line"></span><br><span class="line">                out_put(ti,map_size,&quot;Write&quot;);//模拟替换时SSD的写</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;//命中</span><br><span class="line">            struct list_entry *  le = got-&gt;second;</span><br><span class="line">            le-&gt;access_cnt++;</span><br><span class="line">            le-&gt;pre_access = total_num;</span><br><span class="line">            le-&gt;next_access = find_next(key);</span><br><span class="line">            hit_num++;</span><br><span class="line">            if(io_type == 1)&#123;</span><br><span class="line">                //写与读不同的地方</span><br><span class="line">                out_put(ti,le-&gt;lbn,&quot;Write&quot;);//模拟替换时SSD的写 </span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                out_put(ti,le-&gt;lbn,&quot;Read&quot;);//模拟替换时SSD的写</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            le = NULL;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">       </span><br><span class="line">//lru链表测试</span><br><span class="line">#if DEBUG</span><br><span class="line">    int cs = cache_map.size();</span><br><span class="line">    for(int i=0 ; i &lt; cs ; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; cache_entry[i].block_id &lt;&lt; &quot;\t&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">#endif</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    int find_victim()</span><br><span class="line">    &#123;</span><br><span class="line">        </span><br><span class="line">        int cs = cache_map.size();</span><br><span class="line">        int result = 0;</span><br><span class="line">        int max_next = cache_entry[0].next_access;</span><br><span class="line">        //cout &lt;&lt; cs &lt;&lt; &quot;\t&quot;;</span><br><span class="line">        for(int i=0 ; i &lt; cs ; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            //cout &lt;&lt; cache_entry[i].block_id &lt;&lt; &quot;\t&quot;;</span><br><span class="line">            if(cache_entry[i].next_access &gt; max_next)</span><br><span class="line">            &#123;</span><br><span class="line">                max_next = cache_entry[i].next_access;</span><br><span class="line">                result = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    u_int64_t find_next(u_int64_t block_id)</span><br><span class="line">    &#123;</span><br><span class="line">        u_int64_t result = total_num;</span><br><span class="line">        int cnt = 0;</span><br><span class="line">        for (list&lt;u_int64_t&gt;::iterator it=io_list.begin(); it != io_list.end(); ++it)</span><br><span class="line">        &#123;</span><br><span class="line">            cnt++;</span><br><span class="line">            if(*it == block_id)</span><br><span class="line">            &#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            if(cnt &gt; OPT_DEGREE * block_num_conf)&#123;</span><br><span class="line">                cnt = io_list.size()*2;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return (result + cnt - 1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //初始化io_list</span><br><span class="line">    void init_io_list(struct trace_inf *ti)</span><br><span class="line">    &#123;</span><br><span class="line">        struct bio *head = div_block(ti);</span><br><span class="line">        while(head != NULL)</span><br><span class="line">        &#123;</span><br><span class="line">            io_list.push_back(head-&gt;block_id);</span><br><span class="line">            head = head-&gt;next;</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void show_io_list()&#123;</span><br><span class="line">        for (list&lt;u_int64_t&gt;::iterator it=io_list.begin(); it != io_list.end(); ++it)</span><br><span class="line">        &#123;</span><br><span class="line">           cout &lt;&lt; *it &lt;&lt; &quot;\t&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>ARC</p>
+</blockquote>
+<p>其中arc算法逻辑如下图</p>
+<p><img src="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/缓存模拟器-2.jpg" alt="image"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br></pre></td><td class="code"><pre><span class="line">class arc : public algorithm</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">private://缓存基本信息</span><br><span class="line">    </span><br><span class="line">    struct list_entry *hot_t1; //fifo的hot端</span><br><span class="line">    struct list_entry *cold_t1; //fifo的cold端</span><br><span class="line">    struct list_entry *hot_b1; //fifo的hot端</span><br><span class="line">    struct list_entry *cold_b1; //fifo的cold端</span><br><span class="line">    struct list_entry *hot_t2; //fifo的hot端</span><br><span class="line">    struct list_entry *cold_t2; //fifo的cold端</span><br><span class="line">    struct list_entry *hot_b2; //fifo的hot端</span><br><span class="line">    struct list_entry *cold_b2; //fifo的cold端</span><br><span class="line"></span><br><span class="line">    unordered_map&lt;u_int64_t,struct list_entry *&gt; cache_map_t1; //缓存索引</span><br><span class="line">    unordered_map&lt;u_int64_t,struct list_entry *&gt; cache_map_b1; //缓存索引</span><br><span class="line">    unordered_map&lt;u_int64_t,struct list_entry *&gt; cache_map_t2; //缓存索引</span><br><span class="line">    unordered_map&lt;u_int64_t,struct list_entry *&gt; cache_map_b2; //缓存索引</span><br><span class="line"></span><br><span class="line">    int p;</span><br><span class="line">    int del;</span><br><span class="line">    int c;</span><br><span class="line"></span><br><span class="line">public: //缓存基本操作</span><br><span class="line"></span><br><span class="line">    //初始化</span><br><span class="line">    arc(int cache_s, int block_s, int wt)</span><br><span class="line">    &#123;</span><br><span class="line">        </span><br><span class="line">        outfile = NULL;</span><br><span class="line">        outfile = open_file(&quot;arc.out&quot;);</span><br><span class="line">        strcpy(name,&quot;arc&quot;);</span><br><span class="line">        cache_size = cache_s;</span><br><span class="line">        block_size = block_s;</span><br><span class="line">        write_type = wt;</span><br><span class="line">        block_num = cache_size / (512*block_size) ;</span><br><span class="line">        hit_num = 0;</span><br><span class="line">        total_num = 0;</span><br><span class="line">        read_num = 0;</span><br><span class="line">        ssd_write = 0;</span><br><span class="line"></span><br><span class="line">        hot_t1 = cold_t1 = NULL;</span><br><span class="line">        hot_b1 = cold_b1 = NULL;</span><br><span class="line">        hot_t2 = cold_t2 = NULL;</span><br><span class="line">        hot_b2 = cold_b2 = NULL;</span><br><span class="line"></span><br><span class="line">        p = 0 ;</span><br><span class="line"></span><br><span class="line">        c = block_num;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ~arc()</span><br><span class="line">    &#123;</span><br><span class="line">        close_file(outfile);</span><br><span class="line">        outfile = NULL;</span><br><span class="line">        </span><br><span class="line">        //销毁lru链表</span><br><span class="line">        struct list_entry *le1;</span><br><span class="line">        while(hot_t1 != NULL)</span><br><span class="line">        &#123; </span><br><span class="line">            le1 = hot_t1;</span><br><span class="line">            hot_t1 = le1-&gt;next;</span><br><span class="line">            free(le1);</span><br><span class="line">            le1 = NULL;</span><br><span class="line">        &#125;</span><br><span class="line">        while(hot_t2 != NULL)</span><br><span class="line">        &#123; </span><br><span class="line">            le1 = hot_t2;</span><br><span class="line">            hot_t2 = le1-&gt;next;</span><br><span class="line">            free(le1);</span><br><span class="line">            le1 = NULL;</span><br><span class="line">        &#125;</span><br><span class="line">        while(hot_b1 != NULL)</span><br><span class="line">        &#123; </span><br><span class="line">            le1 = hot_b1;</span><br><span class="line">            hot_b1 = le1-&gt;next;</span><br><span class="line">            free(le1);</span><br><span class="line">            le1 = NULL;</span><br><span class="line">        &#125;</span><br><span class="line">        while(hot_b2 != NULL)</span><br><span class="line">        &#123; </span><br><span class="line">            le1 = hot_b2;</span><br><span class="line">            hot_b2 = le1-&gt;next;</span><br><span class="line">            free(le1);</span><br><span class="line">            le1 = NULL;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        hot_t1 = cold_t1 = hot_t2 = cold_t2 = hot_b1 = hot_b2 = cold_b1 = cold_b2 = NULL;</span><br><span class="line">        //销毁map</span><br><span class="line">        cache_map_t1.clear();</span><br><span class="line">        cache_map_t2.clear();</span><br><span class="line">        cache_map_b1.clear();</span><br><span class="line">        cache_map_b2.clear();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    void map_operation(u_int64_t key, int io_type,struct trace_inf *ti)</span><br><span class="line">    &#123;</span><br><span class="line">        struct list_entry *le;</span><br><span class="line">        </span><br><span class="line">        int t1 = cache_map_t1.size();</span><br><span class="line">        int t2 = cache_map_t2.size();</span><br><span class="line">        int b1 = cache_map_b1.size();</span><br><span class="line">        int b2 = cache_map_b2.size();</span><br><span class="line"></span><br><span class="line">        unordered_map&lt;u_int64_t,struct list_entry *&gt;::iterator got = cache_map_t1.find(key);</span><br><span class="line">        if(got == cache_map_t1.end())</span><br><span class="line">        &#123;//t1未命中 </span><br><span class="line">           unordered_map&lt;u_int64_t,struct list_entry *&gt;::iterator got2 = cache_map_t2.find(key);</span><br><span class="line">           if(got2 == cache_map_t2.end())</span><br><span class="line">           &#123;//t2未命中</span><br><span class="line">                unordered_map&lt;u_int64_t,struct list_entry *&gt;::iterator got3 = cache_map_b1.find(key);</span><br><span class="line">                if(got3 == cache_map_b1.end())</span><br><span class="line">                &#123;//b1中未命中</span><br><span class="line">                    unordered_map&lt;u_int64_t,struct list_entry *&gt;::iterator got4 = cache_map_b2.find(key);</span><br><span class="line">                    if(got4 == cache_map_b2.end())</span><br><span class="line">                    &#123;//都未命中---case4</span><br><span class="line">                        if(t1+b1 == c)</span><br><span class="line">                        &#123;</span><br><span class="line">                            if(t1 &lt; c)</span><br><span class="line">                            &#123;//删除 b1的lru端</span><br><span class="line">                                del_cold(&amp;cache_map_b1,&amp;hot_b1,&amp;cold_b1,&amp;le);</span><br><span class="line">                                if(le != NULL)</span><br><span class="line">                                &#123;</span><br><span class="line">                                    free(le);</span><br><span class="line">                                &#125;</span><br><span class="line">                                replace(p,4);</span><br><span class="line">                            &#125;</span><br><span class="line">                            else</span><br><span class="line">                            &#123;//b1是空的,删除t1的lru端</span><br><span class="line">                                del_cold(&amp;cache_map_t1,&amp;hot_t1,&amp;cold_t1,&amp;le);</span><br><span class="line">                                if(le != NULL)</span><br><span class="line">                                &#123;</span><br><span class="line">                                    free(le);</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                        else if( t1 + b1 &lt; c)</span><br><span class="line">                        &#123;//t1+b1 &lt; c</span><br><span class="line">                            if(t1+t2+b1+b2 &gt;= c)</span><br><span class="line">                            &#123;</span><br><span class="line">                                if(t1+t2+b1+b2 == 2*c)</span><br><span class="line">                                &#123;</span><br><span class="line">                                    //删除b2的lru端</span><br><span class="line">                                    del_cold(&amp;cache_map_b2,&amp;hot_b2,&amp;cold_b2,&amp;le);</span><br><span class="line">                                    if(le!=NULL)</span><br><span class="line">                                    &#123;</span><br><span class="line">                                        free(le);</span><br><span class="line">                                    &#125;</span><br><span class="line">                                &#125;</span><br><span class="line">                                replace(p,4);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        struct list_entry *lie = (struct list_entry *)malloc(sizeof(struct list_entry));</span><br><span class="line">                        lie-&gt;pre = NULL;</span><br><span class="line">                        lie-&gt;next = hot_t1;</span><br><span class="line">                        lie-&gt;block_id = key;</span><br><span class="line">                        lie-&gt;access_cnt = 1;</span><br><span class="line">                        lie-&gt;pre_access = total_num;</span><br><span class="line">                        </span><br><span class="line">                        add_hot(&amp;cache_map_t1,&amp;hot_t1,&amp;cold_t1,lie);</span><br><span class="line"></span><br><span class="line">                        ssd_write++;</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line">                    else</span><br><span class="line">                    &#123;//缓存未命中，但b2命中---case3</span><br><span class="line">                        le = got4-&gt;second;</span><br><span class="line"></span><br><span class="line">                        if(b2 &gt;= b1)</span><br><span class="line">                        &#123;</span><br><span class="line">                            del = 1;</span><br><span class="line">                        &#125;</span><br><span class="line">                        else</span><br><span class="line">                        &#123;   </span><br><span class="line">                            del = b1 / b2;</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        if(p-del &gt; 0)</span><br><span class="line">                        &#123;</span><br><span class="line">                            p -= del;</span><br><span class="line">                        &#125;</span><br><span class="line">                        else</span><br><span class="line">                        &#123;</span><br><span class="line">                            p = 0;</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        replace(p,3);</span><br><span class="line"></span><br><span class="line">                        del_poi(&amp;cache_map_b2,&amp;hot_b2,&amp;cold_b2,le);</span><br><span class="line">                        add_hot(&amp;cache_map_t2,&amp;hot_t2,&amp;cold_t2,le);</span><br><span class="line">                        </span><br><span class="line">                        ssd_write++;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;//缓存未命中，但b1命中---case2</span><br><span class="line">                    le = got3-&gt;second;</span><br><span class="line"></span><br><span class="line">                    if(b1 &gt;= b2)</span><br><span class="line">                    &#123;</span><br><span class="line">                        del = 1;</span><br><span class="line">                    &#125;</span><br><span class="line">                    else</span><br><span class="line">                    &#123;</span><br><span class="line">                        del = b2 / b1;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    if(p+del &lt; c)</span><br><span class="line">                    &#123;</span><br><span class="line">                        p += del;</span><br><span class="line">                    &#125;</span><br><span class="line">                    else</span><br><span class="line">                    &#123;</span><br><span class="line">                        p = c;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    replace(p,2);</span><br><span class="line"></span><br><span class="line">                    del_poi(&amp;cache_map_b1,&amp;hot_b1,&amp;cold_b1,le);</span><br><span class="line">                    add_hot(&amp;cache_map_t2,&amp;hot_t2,&amp;cold_t2,le);</span><br><span class="line"></span><br><span class="line">                    ssd_write++;</span><br><span class="line">                        </span><br><span class="line">                &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           else</span><br><span class="line">           &#123;//t2命中---case1</span><br><span class="line">                le = got2-&gt;second;</span><br><span class="line">               </span><br><span class="line">                del_poi(&amp;cache_map_t2,&amp;hot_t2,&amp;cold_t2,le);</span><br><span class="line">                add_hot(&amp;cache_map_t2,&amp;hot_t2,&amp;cold_t2,le);</span><br><span class="line"></span><br><span class="line">                hit_num++;  </span><br><span class="line">                if(io_type == 1)&#123;</span><br><span class="line">                    //写与读不同的地方</span><br><span class="line">                    ssd_write++;  </span><br><span class="line">                &#125;</span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;//t1命中---case1</span><br><span class="line">            le = got-&gt;second;</span><br><span class="line">            del_poi(&amp;cache_map_t1,&amp;hot_t1,&amp;cold_t1,le);</span><br><span class="line">            add_hot(&amp;cache_map_t2,&amp;hot_t2,&amp;cold_t2,le);</span><br><span class="line">            </span><br><span class="line">            hit_num++;</span><br><span class="line">            if(io_type == 1)&#123;</span><br><span class="line">                //写与读不同的地方</span><br><span class="line">                ssd_write++;  </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">       </span><br><span class="line">//lru链表测试</span><br><span class="line">#if DEBUG</span><br><span class="line">    display();</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void replace(int pp, int flag)</span><br><span class="line">    &#123;</span><br><span class="line">        struct list_entry *le;</span><br><span class="line">        int tmp = cache_map_t1.size();</span><br><span class="line">        if((tmp != 0)&amp;&amp;((tmp &gt; pp) || (flag == 3 &amp;&amp; tmp == p)))</span><br><span class="line">        &#123;</span><br><span class="line">            del_cold(&amp;cache_map_t1,&amp;hot_t1,&amp;cold_t1,&amp;le);</span><br><span class="line">            add_hot(&amp;cache_map_b1,&amp;hot_b1,&amp;cold_b1,le);</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            del_cold(&amp;cache_map_t2,&amp;hot_t2,&amp;cold_t2,&amp;le);</span><br><span class="line">            add_hot(&amp;cache_map_b2,&amp;hot_b2,&amp;cold_b2,le);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void del_cold(unordered_map&lt;u_int64_t,struct list_entry *&gt; *cache_map, struct list_entry **hot, struct list_entry **cold,struct list_entry **le)</span><br><span class="line">    &#123;</span><br><span class="line">        *le = *cold;</span><br><span class="line">        if(*cold != NULL)</span><br><span class="line">        &#123;</span><br><span class="line">            (*cache_map).erase((*le)-&gt;block_id);</span><br><span class="line">            if((*le)-&gt;pre != NULL)&#123;</span><br><span class="line">                (*le)-&gt;pre-&gt;next = (*le)-&gt;next;</span><br><span class="line">                *cold = (*le)-&gt;pre;</span><br><span class="line">                if(*cold != NULL)</span><br><span class="line">                &#123;</span><br><span class="line">                    (*cold)-&gt;next = NULL;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                *hot = *cold = NULL;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void del_poi(unordered_map&lt;u_int64_t,struct list_entry *&gt; *cache_map, struct list_entry **hot, struct list_entry **cold, struct list_entry *le)</span><br><span class="line">    &#123;</span><br><span class="line">        if(le != NULL)</span><br><span class="line">        &#123;</span><br><span class="line">            (*cache_map).erase(le-&gt;block_id);</span><br><span class="line">            if(le-&gt;pre != NULL)&#123;</span><br><span class="line">                le-&gt;pre-&gt;next = le-&gt;next;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                *hot = le-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            if(le-&gt;next != NULL)&#123;</span><br><span class="line">                le-&gt;next-&gt;pre = le-&gt;pre;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                *cold = le-&gt;pre;</span><br><span class="line">            &#125;</span><br><span class="line">            if(*hot != NULL)</span><br><span class="line">            &#123;</span><br><span class="line">                (*hot)-&gt;pre = NULL;</span><br><span class="line">            &#125;</span><br><span class="line">            if(*cold != NULL)</span><br><span class="line">            &#123;</span><br><span class="line">                (*cold)-&gt;next = NULL;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void add_hot(unordered_map&lt;u_int64_t,struct list_entry *&gt; *cache_map, struct list_entry ** hot, struct list_entry ** cold,struct list_entry *le)</span><br><span class="line">    &#123;</span><br><span class="line">        if(le != NULL)</span><br><span class="line">        &#123;</span><br><span class="line">            (*cache_map)[le-&gt;block_id] = le;</span><br><span class="line">            le-&gt;next = *hot;</span><br><span class="line">            if(*cold == NULL)</span><br><span class="line">            &#123;</span><br><span class="line">                *cold = le;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            if(*hot != NULL)</span><br><span class="line">            &#123;</span><br><span class="line">                (*hot)-&gt;pre = le;</span><br><span class="line">            &#125;</span><br><span class="line">            *hot = le;</span><br><span class="line">            (*hot)-&gt;pre = NULL;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void display()</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        struct list_entry *le1;</span><br><span class="line"></span><br><span class="line">        le1 = hot_b2;</span><br><span class="line">        cout &lt;&lt; &quot;b2 :&quot; &lt;&lt; &quot;\t&quot; ;</span><br><span class="line">        while(le1 != NULL)</span><br><span class="line">        &#123; </span><br><span class="line">            cout &lt;&lt; le1-&gt;block_id &lt;&lt; &quot;\t&quot;;</span><br><span class="line">            le1 = le1-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        le1 = hot_t2;</span><br><span class="line">        cout &lt;&lt; &quot;t2 :&quot; &lt;&lt; &quot;\t&quot; ;</span><br><span class="line">        while(le1 != NULL)</span><br><span class="line">        &#123; </span><br><span class="line">            cout &lt;&lt; le1-&gt;block_id &lt;&lt; &quot;\t&quot;;</span><br><span class="line">            le1 = le1-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        le1 = hot_t1;</span><br><span class="line">        cout &lt;&lt; &quot;t1 :&quot; &lt;&lt; &quot;\t&quot; ;</span><br><span class="line">        while(le1 != NULL)</span><br><span class="line">        &#123; </span><br><span class="line">            cout &lt;&lt; le1-&gt;block_id &lt;&lt; &quot;\t&quot;;</span><br><span class="line">            le1 = le1-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        le1 = hot_b1;</span><br><span class="line">        cout &lt;&lt; &quot;b1 :&quot; &lt;&lt; &quot;\t&quot; ;</span><br><span class="line">        while(le1 != NULL)</span><br><span class="line">        &#123; </span><br><span class="line">            cout &lt;&lt; le1-&gt;block_id &lt;&lt; &quot;\t&quot;;</span><br><span class="line">            le1 = le1-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; cache_map_b2.size() &lt;&lt;&quot; &quot;&lt;&lt;cache_map_t2.size() &lt;&lt; &quot; &quot;&lt;&lt;cache_map_t1.size()&lt;&lt;&quot; &quot;&lt;&lt;cache_map_b1.size();</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -960,11 +231,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">排队论</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">存储</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ad hoc无线网</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">缓存</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">zycache</a>
         		</li>
       		
 		</ul>
@@ -973,16 +248,84 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/排队论在ad hoc无线网中的应用/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/04/03/缓存模拟器-zycache/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2018/04/03/机器学习 scikit_learn使用-1-安装/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          机器学习 scikit_learn使用-1-安装
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/04/03/缓存模拟器-cache-sim_v1.0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">缓存模拟器-cache-sim_v1.0</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -1002,12 +345,14 @@
 
 
 
+  
+  
+  
 
   
+
   
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
+
   
 
 
@@ -1030,8 +375,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

@@ -6,15 +6,28 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hexo</title>
+  <title>flashcache-2-调度模块及IO流程 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="device mapper调度模块得先说说Device Mapper device mapper简介 Device Mapper（DM）是Linux2.6全面引入的块设备新构架，通过DM可以灵活地管理系统中所有的真实或虚拟的块设备。 Device mapper在内核中作为一个块设备驱动被注册,包含三个重要的对象概念">
+<meta name="keywords" content="flashcache,存储,块存储">
+<meta property="og:type" content="article">
+<meta property="og:title" content="flashcache-2-调度模块及IO流程">
+<meta property="og:url" content="http://yoursite.com/2018/04/03/flashcache-2-调度模块及IO流程/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="device mapper调度模块得先说说Device Mapper device mapper简介 Device Mapper（DM）是Linux2.6全面引入的块设备新构架，通过DM可以灵活地管理系统中所有的真实或虚拟的块设备。 Device mapper在内核中作为一个块设备驱动被注册,包含三个重要的对象概念">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/flashcache-3-1.jpg">
+<meta property="og:image" content="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/flashcache-3-2.jpg">
+<meta property="og:image" content="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/flashcache-3-3.jpg">
+<meta property="og:image" content="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/flashcache-3-4.jpg">
+<meta property="og:image" content="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/flashcache-3-5.jpg">
+<meta property="og:image" content="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/flashcache-3-6.jpg">
+<meta property="og:image" content="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/flashcache-3-7.jpg">
+<meta property="og:updated_time" content="2017-05-24T01:36:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="flashcache-2-调度模块及IO流程">
+<meta name="twitter:description" content="device mapper调度模块得先说说Device Mapper device mapper简介 Device Mapper（DM）是Linux2.6全面引入的块设备新构架，通过DM可以灵活地管理系统中所有的真实或虚拟的块设备。 Device mapper在内核中作为一个块设备驱动被注册,包含三个重要的对象概念">
+<meta name="twitter:image" content="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/flashcache-3-1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,284 +163,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-flashcache-3-底层存储模块" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-flashcache-2-调度模块及IO流程" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/flashcache-3-底层存储模块/">flashcache-3-底层存储模块</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/flashcache-3-底层存储模块/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.335Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="http://www.cnblogs.com/wuchanming/p/3813491.html/" target="_blank" rel="noopener">转载自Jessica程序猿博客</a></p>
-<p>flashcache中跟底层存储模块分为以下两类：</p>
-<p>1）磁盘跟内存的交互</p>
-<p>2）磁盘跟磁盘之前的交互</p>
-<p>比如说读不命中时就是直接从磁盘读，属于第1种情况，那读命中呢？也是属于第1种情况，不过这时候是从SSD读。磁盘跟磁盘之间交互是用于写脏数据，将SSD中脏cache块拷贝到磁盘上去。现在介绍下两种情况使用的接口函数，这样后面在看读写流程时看到这两个函数就十分亲切了，并且清楚地知道数据是从哪里流向哪里。</p>
-        
-          <a class="article-more-a" href="/2018/04/03/flashcache-3-底层存储模块/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">flashcache</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">存储</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">块存储</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">转载</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/flashcache-3-底层存储模块/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-flashcache-4-修改与测试" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/flashcache-4-修改与测试/">flashcache-4-修改与测试</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/flashcache-4-修改与测试/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.335Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="系统安装"><a href="#系统安装" class="headerlink" title="系统安装"></a>系统安装</h1><p>由于flashcache在最新版本的ubuntu上会有兼容性问题（新版本ubuntu的linux内核版本高于4，ioctl被删除了，因此新版本ubuntu安装flashcache需要打补丁，比较麻烦），这里选用旧版本的ubuntu 14.10(utopic)</p>
-<p>安装<a href="http://old-releases.ubuntu.com/releases/" target="_blank" rel="noopener">ubuntu14.10 utopic</a></p>
-<p>这个版本的ubuntu官网之前的源失效了，可以修改源文件（具体参见<a href="http://forum.ubuntu.org.cn/viewtopic.php?f=77&amp;t=473404&amp;start=3" target="_blank" rel="noopener">求助 13.04 更新及升级</a>）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit /etc/apt/sources.list</span><br></pre></td></tr></table></figure>
-<p>然后修改为下面的源<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deb http://old-releases.ubuntu.com/ubuntu/ utopic main restricted universe multiverse</span><br></pre></td></tr></table></figure></p>
-        
-          <a class="article-more-a" href="/2018/04/03/flashcache-4-修改与测试/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">flashcache</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">存储</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">块存储</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/flashcache-4-修改与测试/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-flashcache-1-入门与安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/flashcache-1-入门与安装/">flashcache-1-入门与安装</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/flashcache-1-入门与安装/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.319Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最近，由于项目需要，在做关于flashcache的一些工作，主要涉及模块组织、元数据管理及数据分布、读写流程分析、数据在磁盘和cache(SSD)之间的调度、缺点及可优化方向等一些方面的分析研究。</p>
-        
-          <a class="article-more-a" href="/2018/04/03/flashcache-1-入门与安装/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">flashcache</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">存储</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">块存储</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">转载</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/flashcache-1-入门与安装/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-flashcache-2-调度模块及IO流程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/flashcache-2-调度模块及IO流程/">flashcache-2-调度模块及IO流程</a>
+    <h1 class="article-title" itemprop="name">
+      flashcache-2-调度模块及IO流程
     </h1>
   
 
@@ -445,11 +188,78 @@
 <li>Device Mapper（DM）是Linux2.6全面引入的块设备新构架，通过DM可以灵活地管理系统中所有的真实或虚拟的块设备。</li>
 <li>Device mapper在内核中作为一个块设备驱动被注册,包含三个重要的对象概念</li>
 </ul>
-        
-          <a class="article-more-a" href="/2018/04/03/flashcache-2-调度模块及IO流程/#more">more >></a>
-        
+<a id="more"></a>
+<ol>
+<li><p>mapped device </p>
+<p> 逻辑抽象,内核向外提供的逻辑设备，它通过映射表描述的映射关系和target device建立映射。</p>
+</li>
+<li><p>target device</p>
+<p>Target device 表示的是mapped device所映射的物理空间段，对mapped device所表示的逻辑设备来说，就是该逻辑设备映射到的一个物理设备。</p>
+</li>
+<li><p>映射表</p>
+<p> 从Mapped device到一个target device的映射表由一个多元组表示，该多元组由表示mappeddevice逻辑的起始地址、范围、和表示在targetdevice所在物理设备的地址偏移量以及target类型等变量组成</p>
+</li>
+</ol>
+<p>具体如下图<br><img src="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/flashcache-3-1.jpg" alt="image"></p>
+<h3 id="device-mapper创建过程"><a href="#device-mapper创建过程" class="headerlink" title="device mapper创建过程"></a>device mapper创建过程</h3><p>1、根据内核向用户空间提供的ioctl 接口传来的参数，用dm-ioctl.c文件中的dev_create函数创建相应的mapped device结构。这个过程很简单，主要是向内核申请必要的内存资源，包括mapped device和为进行IO操作预申请的内存池，通过内核提供的blk_queue_make_request函数注册该mapped device对应的请求队列dm_request。并将该mapped device作为磁盘块设备注册到内核中。</p>
+<p>2、调用dm_hash_insert将创建好的mapped device插入到device mapper中的一个全局hash表中，该表中保存了内核中当前创建的所有mapped device。</p>
+<p>3、用户空间命令通过ioctl调用table_load函数，该函数根据用户空间传来的参数构建指定mapped device的映射表和所映射的target device。该函数先构建相应的dm_table、dm_target结构，再调用dm-table.c中的dm_table_add_target函数根据用户传入的参数初始化这些结构，并且根据参数所指定的target类型，调用相应的target类型的构建函数ctr在内存中构建target device对应的结构，然后再根据所建立的dm_target结构更新dm_table中维护的B树。上述过程完毕后，再将建立好的dm_table添加到mapped device的全局hash表对应的hash_cell结构中。</p>
+<p>4、最后通过ioctl调用do_resume函数建立mapped device和映射表之间的绑定关系，事实上该过程就是通过dm_swap_table函数将当前dm_table结构指针值赋予mapped_device相应的map域中，然后再修改mapped_device表示当前状态的域。<br>通过上述的4个主要步骤，device mapper在内核中就建立一个可以提供给用户使用的mapped device逻辑块设备。</p>
+<p><img src="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/flashcache-3-2.jpg" alt="image"></p>
+<h3 id="device-mapper具体结构"><a href="#device-mapper具体结构" class="headerlink" title="device mapper具体结构"></a>device mapper具体结构</h3><p><img src="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/flashcache-3-3.jpg" alt="image"></p>
+<p><img src="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/flashcache-3-4.jpg" alt="image"></p>
+<h2 id="IO流程"><a href="#IO流程" class="headerlink" title="IO流程"></a>IO流程</h2><p><a href="http://blog.donghao.org/2013/03/20/flashcache%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener">下面这一段转载自斯巴达第二季博客</a></p>
+<p>一般来说，我们对磁盘的read和write最后都会走到kernel里的submit_bio函数，也就是把io请求变成一个个的bio（bio的介绍看这里），bio是linux内核里文件系统层和block层之间沟通的数据结构（有点像sk_buffer之于网络），到了block层以后，一般是先做generic_make_request把bio变成request，怎么个变法？如果几个bio要读写的区域是连续的，就攒成一个request（一个request下挂多个连续bio，就是通常说的“合并bio请求”）；如果这个bio跟其它bio都连不上，那它自己就创建一个新的request，把自己挂到这个request下。合并bio请求也是有限度的，如果这些连续bio的访问区域加起来超过了一定的大小（在/sys/block/xxx/queue/max_sectors_kb里设置）,那么就不能再合并成一个request了。</p>
+<p>合并后的request会放入每个device对应的queue（一个机械硬盘即使有多个分区，也只有一个queue），之后，磁盘设备驱动程序通过调用peek_request从queue里取出request，进行下一步的处理。</p>
+<p>之所以要把多个bio合并成一个request，是因为机械硬盘在顺序读写时吞吐最大。如果我们换成SSD盘，合并这事儿就没那么必要了，这一点是可选的，在实现设备驱动时，厂商可以选择从kernel的queue里取request，也可以选择自己实现queue的make_request_fn方法，直接拿文件系统层传过来的bio来进行处理（fusionio好像就是这么做的）。</p>
+<p>我曾经弱弱的问过涛哥：既然bio有bio_vec结构指向多个page，那么为什么不干脆把多个bio合并成一个bio呢？何必要多一个request数据结构那么麻烦？<br>涛哥答曰：每个bio有自己的end_io回调，一个bio结束，就会做自己对应的收尾工作，如果你合并成一个bio了，就丧失了这种灵活性。</p>
+<p>linux kernel有一个device mapper框架（以下简称dm框架），linux上的软RAID、multipath等都是通过此框架实现的。dm可以将多个设备聚合成一个虚拟设备提供给用户使用，其原理就是把这个虚拟设备的make_request_fn方法实现成了自己的dm_request，这样所有发往这个虚拟设备的bio都会走进dm_request，然后dm通过判断这个虚拟设备是基于request（request based）的还是基于bio（bio based）的来分别处理：</p>
+<p><img src="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/flashcache-3-5.jpg" alt="image"></p>
+<p>如果虚拟设备是request based，则和磁盘设备一样走generic_make_request把bio合并成request（如上），注意这些request最后放到的是虚拟设备的queue里，等到虚拟设备通过kblockd调用dm_request_fn时，dm_request_fn里会调用peek_request，从虚拟设备的queue里拿出request，将其clone（clone后的request里的bio指向的page是同一个page，只是分配了新的bio和新的request），然后调用map_request对request做映射（map_request里把map_rq接口暴露给了使用dm框架的开发者），最后把clone后的request发向低层的真实设备。</p>
+<p>如果虚拟设备是bio based，就更简单了，调用_dm_request函数，一样要clone bio，然后调用<strong>map_bio对bio做映射（</strong>map_bio里把map暴露给了使用dm框架的开发者），最后把clone后的bio也是通过generic_make_request发向低层的真实设备，这次generic_make_request生成的request就是放在真实设备的queue里了，这是与request based的不同之处。</p>
+<p>flashcache是基于dm框架实现的，很自然的，是把一个SSD盘和一个机械硬盘聚合成一个虚拟设备供用户使用。<br>flashcache把cache（指SSD盘）分为多个set，每个set里有多个block（默认一个block是4KB，一个set包含512个block，即2MB），set里的block是用lru链表组织起来的，每个block还记录了自己存放的是disk的哪个sector起始的位置里对应的内容（这个起始的sector编号在flashcache的文档里被称为dbn）。<br>disk（这里指机械硬盘）也虚拟的分为多个set只是为了方便做hash。hash算法非常简单，先看访问的是disk的什么位置，相当于在disk的哪个set里，然后模上cache里的set数，结果就是在cache里对应的set编号了。找到cache对应的set后，继续在set的lru表里挨个儿block的比对dbn号，对上了就成功，对不上说明cache里没有缓存要读取的disk内容。</p>
+<p>例如cache大小为10G，disk大小为100G，用户要读取磁盘上偏移54321MB处的2K内容，那么首先对54321MB这个位置做hash，2MB一个set，对应的set number是27160，cache的总set数为5120，那么 27160 mod 5120 结果为1560，也就是说应该去cache的第1560个set中去找，然后来到cache的1560 set里用 dbn 111249408 遍历查找lru。<br>其实，新版本的flashcache在组相联算法上做了改进，如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"> * Map a block from the source device to a block in the cache device.</span><br><span class="line"> */</span><br><span class="line">unsigned long </span><br><span class="line">hash_block(struct cache_c *dmc, sector_t dbn)</span><br><span class="line">&#123;</span><br><span class="line">	unsigned long set_number, value;</span><br><span class="line">        int num_cache_sets = dmc-&gt;size &gt;&gt; dmc-&gt;assoc_shift;</span><br><span class="line"></span><br><span class="line">	/*</span><br><span class="line">	 * Starting in Flashcache SSD Version 3 :</span><br><span class="line">	 * We map a sequential cluster of disk_assoc blocks onto a given set.</span><br><span class="line">	 * But each disk_assoc cluster can be randomly placed in any set.</span><br><span class="line">	 * But if we are running on an older on-ssd cache, we preserve old</span><br><span class="line">	 * behavior.</span><br><span class="line">	 */</span><br><span class="line">	if (dmc-&gt;on_ssd_version &lt; 3 || dmc-&gt;disk_assoc == 0) &#123;</span><br><span class="line">		value = (unsigned long)</span><br><span class="line">			(dbn &gt;&gt; (dmc-&gt;block_shift + dmc-&gt;assoc_shift));</span><br><span class="line">	&#125; else &#123;//新版本对flashcache组相联的改进</span><br><span class="line">		/* Shift out the low disk_assoc bits */</span><br><span class="line">		value = (unsigned long) (dbn &gt;&gt; dmc-&gt;disk_assoc_shift);</span><br><span class="line">		/* Then place it in a random set */</span><br><span class="line">		value = jhash_1word(value, 0xbeef);</span><br><span class="line">	&#125;</span><br><span class="line">	set_number = value % num_cache_sets;</span><br><span class="line">	DPRINTK(&quot;Hash: %llu(%lu)-&gt;%lu&quot;, dbn, value, set_number);</span><br><span class="line">	return set_number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>flashcache主要是实现了dm框架暴露出来的map接口（参考flashcache_map函数），收到bio后，先做hash，然后在cache（这里指SSD盘）里查找:</p>
+<p>A. 如果是读bio<br>1 如果查找成功，直接将结果返回<br>2 如果查找失败，则找set内空闲的block（如果没有空闲的，则用最“旧”的block），直接读取disk里对应的内容返回给用户，返给用户后设置延时任务将读取的内容放入这个空闲block里</p>
+<p>B. 如果是写bio（我们仅列举writeback情况）<br>1 如果查找成功，拿到对应的block<br>2 如果查找失败，拿到对应set里最“旧”的block<br>直接将数据写入此block，返回给用户（用户的write系统调用就可以返回了），完成后将该block的状态设为DIRTY并设置延时任务，任务内容为将cache里的内容写往disk（这样既能让用户的写请求迅速完成，又能一定程度保证数据最终被写往disk）。延时任务完成后，便可以去掉DIRTY标记了。</p>
+<p>flashcache还会不时的将cache的set里长期没被访问的DIRTY的block写往disk，以保证有足够多的干净的block供以后使用。这个“不时的”不是靠定时器实现的，而是通过在flashcache_write_miss、flashcache_read_miss等函数里调用flashcache_clean_set来做到的。</p>
+<h2 id="补充两个问题"><a href="#补充两个问题" class="headerlink" title="补充两个问题"></a>补充两个问题</h2><p><img src="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/flashcache-3-6.jpg" alt="image"><br><img src="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/flashcache-3-7.jpg" alt="image"></p>
+<h2 id="最后补充一下相关的代码"><a href="#最后补充一下相关的代码" class="headerlink" title="最后补充一下相关的代码"></a>最后补充一下相关的代码</h2><ul>
+<li><a href="http://elixir.free-electrons.com/linux/v3.9/source/drivers/md/dm.c#L1354" target="_blank" rel="noopener">dm.c 代码可以参见</a></li>
+<li>dm-io.h、bio.h以及device-mapper.h等头文件一般在<br><strong>/usr/src/$(shell uname -r)/include/linux</strong>文件夹下</li>
+</ul>
+<p>我们进一步看一下上述三个对象在代码中的具体实现，dm.c 文件定义的 mapped_device 结构用于表示 mapped device，它主要包括该 mapped device 相关的锁，注册的请求队列和一些内存池以及指向它所对应映射表的指针等域。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"> * Work processed by per-device workqueue.</span><br><span class="line"> */</span><br><span class="line">struct mapped_device &#123;</span><br><span class="line">	struct rw_semaphore io_lock;</span><br><span class="line">	struct mutex suspend_lock;</span><br><span class="line">	rwlock_t map_lock;</span><br><span class="line">	atomic_t holders;</span><br><span class="line">	atomic_t open_count;</span><br><span class="line"></span><br><span class="line">	unsigned long flags;</span><br><span class="line"></span><br><span class="line">	struct request_queue *queue;</span><br><span class="line">	unsigned type;</span><br><span class="line">	/* Protect queue and type against concurrent access. */</span><br><span class="line">	struct mutex type_lock;</span><br><span class="line"></span><br><span class="line">	struct target_type *immutable_target_type;</span><br><span class="line"></span><br><span class="line">	struct gendisk *disk;</span><br><span class="line">	char name[16];</span><br><span class="line"></span><br><span class="line">	void *interface_ptr;</span><br><span class="line"></span><br><span class="line">	/*</span><br><span class="line">	 * A list of ios that arrived while we were suspended.</span><br><span class="line">	 */</span><br><span class="line">	atomic_t pending[2];</span><br><span class="line">	wait_queue_head_t wait;</span><br><span class="line">	struct work_struct work;</span><br><span class="line">	struct bio_list deferred;</span><br><span class="line">	spinlock_t deferred_lock;</span><br><span class="line"></span><br><span class="line">	/*</span><br><span class="line">	 * Processing queue (flush)</span><br><span class="line">	 */</span><br><span class="line">	struct workqueue_struct *wq;</span><br><span class="line"></span><br><span class="line">	/*</span><br><span class="line">	 * The current mapping.</span><br><span class="line">	 */</span><br><span class="line">	struct dm_table *map;</span><br><span class="line"></span><br><span class="line">	/*</span><br><span class="line">	 * io objects are allocated from here.</span><br><span class="line">	 */</span><br><span class="line">	mempool_t *io_pool;</span><br><span class="line"></span><br><span class="line">	struct bio_set *bs;</span><br><span class="line"></span><br><span class="line">	/*</span><br><span class="line">	 * Event handling.</span><br><span class="line">	 */</span><br><span class="line">	atomic_t event_nr;</span><br><span class="line">	wait_queue_head_t eventq;</span><br><span class="line">	atomic_t uevent_seq;</span><br><span class="line">	struct list_head uevent_list;</span><br><span class="line">	spinlock_t uevent_lock; /* Protect access to uevent_list */</span><br><span class="line"></span><br><span class="line">	/*</span><br><span class="line">	 * freeze/thaw support require holding onto a super block</span><br><span class="line">	 */</span><br><span class="line">	struct super_block *frozen_sb;</span><br><span class="line">	struct block_device *bdev;</span><br><span class="line"></span><br><span class="line">	/* forced geometry settings */</span><br><span class="line">	struct hd_geometry geometry;</span><br><span class="line"></span><br><span class="line">	/* sysfs handle */</span><br><span class="line">	struct kobject kobj;</span><br><span class="line"></span><br><span class="line">	/* zero-length flush that will be cloned and submitted to targets */</span><br><span class="line">	struct bio flush_bio;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>Mapped device 对应的映射表是由 dm_table.c 文件中定义的 dm_table 结构表示的，该结构中包含一个 dm_target结构数组，在 dm_table 结构中将这些dm_target 按照 B 树的方式组织起来方便 IO 请求映射时的查找操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">struct dm_table &#123;  </span><br><span class="line">    struct mapped_device *md;  </span><br><span class="line">    atomic_t holders;  </span><br><span class="line">    unsigned type;  </span><br><span class="line">  </span><br><span class="line">    /* btree table */  </span><br><span class="line">    unsigned int depth;  </span><br><span class="line">    unsigned int counts[MAX_DEPTH]; /* in nodes */  </span><br><span class="line">    sector_t *index[MAX_DEPTH];  </span><br><span class="line">  </span><br><span class="line">    unsigned int num_targets;  </span><br><span class="line">    unsigned int num_allocated;  </span><br><span class="line">    sector_t *highs;  </span><br><span class="line">    struct dm_target *targets;  </span><br><span class="line">  </span><br><span class="line">    /* </span><br><span class="line">     * Indicates the rw permissions for the new logical </span><br><span class="line">     * device.  This should be a combination of FMODE_READ </span><br><span class="line">     * and FMODE_WRITE. </span><br><span class="line">     */  </span><br><span class="line">    fmode_t mode;  </span><br><span class="line">  </span><br><span class="line">    /* a list of devices used by this table */  </span><br><span class="line">    struct list_head devices;  </span><br><span class="line">  </span><br><span class="line">    /* events get handed up using this callback */  </span><br><span class="line">    void (*event_fn)(void *);  </span><br><span class="line">    void *event_context;  </span><br><span class="line">  </span><br><span class="line">    struct dm_md_mempools *mempools;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>dm_target 结构描述了 mapped_device 到它某个 target device 的映射关系，具体记录该结构对应 target device 所映射的 mapped device 逻辑区域的开始地址和范围，同时还包含指向具体 target device 相关操作的 target_type 结构的指针。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">struct dm_target &#123;  </span><br><span class="line">    struct dm_table *table;  </span><br><span class="line">    struct target_type *type;  </span><br><span class="line">  </span><br><span class="line">    /* target limits */  </span><br><span class="line">    sector_t begin;  </span><br><span class="line">    sector_t len;  </span><br><span class="line">  </span><br><span class="line">    /* Always a power of 2 */  </span><br><span class="line">    sector_t split_io;  </span><br><span class="line">  </span><br><span class="line">    /* </span><br><span class="line">     * A number of zero-length barrier requests that will be submitted </span><br><span class="line">     * to the target for the purpose of flushing cache. </span><br><span class="line">     * </span><br><span class="line">     * The request number will be placed in union map_info-&gt;flush_request. </span><br><span class="line">     * It is a responsibility of the target driver to remap these requests </span><br><span class="line">     * to the real underlying devices. </span><br><span class="line">     */  </span><br><span class="line">    unsigned num_flush_requests;  </span><br><span class="line">  </span><br><span class="line">    /* target specific data */  </span><br><span class="line">    void *private;  </span><br><span class="line">  </span><br><span class="line">    /* Used to provide an error string from the ctr */  </span><br><span class="line">    char *error;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>flashcache中target类型对应target device的结构是struct cache_c</p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -477,16 +287,84 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/flashcache-2-调度模块及IO流程/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/04/03/flashcache-2-调度模块及IO流程/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2018/04/03/flashcache-1-入门与安装/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          flashcache-1-入门与安装
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/04/03/Amazon Elastic Block Store学习/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Amazon Elastic Block Store学习</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -506,508 +384,14 @@
 
 
 
-
-  
-    <article id="post-Amazon Elastic Block Store学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/Amazon Elastic Block Store学习/">Amazon Elastic Block Store学习</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/Amazon Elastic Block Store学习/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.304Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>通过网络访问，并且能独立于实例的生命周期而存在</li>
-<li>可用性和可靠性都非常高的存储卷</li>
-</ul>
-<h5 id="Amazon-EBS-提供最佳满足工作负载需求的三种卷类型"><a href="#Amazon-EBS-提供最佳满足工作负载需求的三种卷类型" class="headerlink" title="Amazon EBS 提供最佳满足工作负载需求的三种卷类型"></a>Amazon EBS 提供最佳满足工作负载需求的三种卷类型</h5><ul>
-<li><p>通用型 (SSD) </p>
-<p>  通用型 (SSD) 是一款以 SSD 为支持的全新通用型 EBS 卷类型，也是我们推荐给客户的默认类型。通用型 (SSD) 卷适用于各种工作负载，包括小型到中型数据库、开发和测试环境以及启动卷。</p>
-</li>
-<li><p>预配置 IOPS (SSD) </p>
-<p>  预配置 IOPS (SSD) 卷提供的存储具有一致性高和延迟低的特点，旨在为 I/O 密集型应用程序提供服务，例如大型关系数据库或 NoSQL 数据库。</p>
-</li>
-<li><p>磁性介质</p>
-<p>  与其他 EBS 卷类型相比，磁性介质卷可提供最低的每 GB 成本。对于数据不常被访问的工作负载以及看重低存储成本的应用来说，磁性介质卷是理想的选择。请参阅 Amazon Elastic Block Store 以了解详细信息。</p>
-</li>
-</ul>
-        
-          <a class="article-more-a" href="/2018/04/03/Amazon Elastic Block Store学习/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">aws</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">弹性块存储</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/Amazon Elastic Block Store学习/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-C++读取配置文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/C++读取配置文件/">C++读取配置文件</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/C++读取配置文件/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.304Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一个读取配置文件的工具类，代码如下<br>Config.h</p>
-        
-          <a class="article-more-a" href="/2018/04/03/C++读取配置文件/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/C++读取配置文件/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-用Git上传项目到 GitHub" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/用Git上传项目到 GitHub/">用Git上传项目到 GitHub</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/用Git上传项目到 GitHub/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.288Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>安装git，<a href="https://git-scm.com/download/" target="_blank" rel="noopener">git下载网址</a></p>
-<p>输入下列命令配置用户名邮箱</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;your name&quot;</span><br><span class="line">git config --global user.email &quot;your_email@youremail.com&quot;</span><br></pre></td></tr></table></figure>
-<p>查看配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config -l</span><br></pre></td></tr></table></figure>
-<p>重置配置（重置后需要重启电脑）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --unset --global</span><br></pre></td></tr></table></figure></p>
-<p>提交</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add README.md</span><br><span class="line">git commit -m &quot;提交注释&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-<p>更加详细使用可以参见<a href="http://www.jianshu.com/p/0fce531dba31" target="_blank" rel="noopener">用 Git 上传项目到 GitHub</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">github</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/用Git上传项目到 GitHub/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-在github pages上建站" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/在github pages上建站/">在github pages上建站</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/在github pages上建站/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.288Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>好记性不如烂笔头，计算机科学日新月异，养成写博客的习惯对于程序猿来说尤为关键，于是便搭了自己的博客！</p>
-        
-          <a class="article-more-a" href="/2018/04/03/在github pages上建站/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">github pages</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/在github pages上建站/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-一叶孤舟，自强不息" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/一叶孤舟，自强不息/">一叶孤舟，自强不息</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/一叶孤舟，自强不息/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.272Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/自强不息.png" alt="image"></p>
-<p>这一年，感觉是二十多年来成长最多的一年，并不是提升了多少专业技能，看了多少论文，而是看透了很多事，认识到了自身的诸多不足，这一点得感谢老板的谆谆教诲。</p>
-        
-          <a class="article-more-a" href="/2018/04/03/一叶孤舟，自强不息/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/一叶孤舟，自强不息/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-排队论在ad hoc无线网中的应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/排队论在ad hoc无线网中的应用/">排队论在ad hoc无线网中的应用</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/排队论在ad hoc无线网中的应用/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.272Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Applications-in-Analysis-of-Ad-Hoc-Networks-using-Queuing-Theory"><a href="#Applications-in-Analysis-of-Ad-Hoc-Networks-using-Queuing-Theory" class="headerlink" title="Applications in Analysis of Ad Hoc Networks using Queuing Theory"></a>Applications in Analysis of Ad Hoc Networks using Queuing Theory</h1><blockquote>
-<p>Yu Zhang</p>
-</blockquote>
-<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><p> Queuing problems are common scenarios in our daily life. From industrial manufacture to daily queuing, we can never leave this topic. Ad Hoc wireless networks are new kinds of networks. It has the advantages of high flexibility and extensibility, which are applied to our daily life gradually. The paper lists the applications in performance analysis of Ad Hoc networks via using queuing theory, and discusses their pros and cons as well as their development directions. At the end of the article, we reproduce some of the experiments via using MATLAB simulators and give a detailed discussion on the results.</p>
-        
-          <a class="article-more-a" href="/2018/04/03/排队论在ad hoc无线网中的应用/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">排队论</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ad hoc无线网</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/排队论在ad hoc无线网中的应用/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -1030,8 +414,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
