@@ -6,22 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://aistorage.github.io">
-  <title>ssdsim学习1 | Yu Zhang&#39;s Blog</title>
+  <title>通过宏定义的日志插件-C语言 | Yu Zhang&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="说明：==下文内容摘自胡洋博士毕业论文。引文通过特殊格式标出==   本章介绍一个自主开发的高准确性、模块化、可配置的固态盘模拟器SSDsim，它能够对高级命令、能耗进行模拟，最终要的一点是它的模拟结果经过了基本的验证。  源码请参见ssdsim 时间模拟事件驱动的模拟器是根据系统内部各个部件的状态改变来修改系统时间，SSDsim就是采用的这种方式的驱动方法；">
-<meta name="keywords" content="ssdsim,ssd">
+  <meta name="description" content="服务器程序运行少不了日志文件的输出，joyyzhang Google了一下相关的插件，发现实现的都太复杂，用起来也不方便，于是joyyzhang通过宏定义实现了一个轻量级的日志插件，只需引用其头文件即可使用，还能自定义日志的级别，用起来十分方便。 头文件代码如下.12345678910111213141516171819202122232425262728293031323334353637383">
+<meta name="keywords" content="C语言">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ssdsim学习1">
-<meta property="og:url" content="http://aistorage.github.io/2018/04/03/ssdsim学习1/index.html">
+<meta property="og:title" content="通过宏定义的日志插件-C语言">
+<meta property="og:url" content="http://aistorage.github.io/2018/07/04/通过宏定义的日志插件-C语言/index.html">
 <meta property="og:site_name" content="Yu Zhang&#39;s Blog">
-<meta property="og:description" content="说明：==下文内容摘自胡洋博士毕业论文。引文通过特殊格式标出==   本章介绍一个自主开发的高准确性、模块化、可配置的固态盘模拟器SSDsim，它能够对高级命令、能耗进行模拟，最终要的一点是它的模拟结果经过了基本的验证。  源码请参见ssdsim 时间模拟事件驱动的模拟器是根据系统内部各个部件的状态改变来修改系统时间，SSDsim就是采用的这种方式的驱动方法；">
+<meta property="og:description" content="服务器程序运行少不了日志文件的输出，joyyzhang Google了一下相关的插件，发现实现的都太复杂，用起来也不方便，于是joyyzhang通过宏定义实现了一个轻量级的日志插件，只需引用其头文件即可使用，还能自定义日志的级别，用起来十分方便。 头文件代码如下.12345678910111213141516171819202122232425262728293031323334353637383">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/ssdsim学习1.jpg">
-<meta property="og:updated_time" content="2017-07-20T14:34:50.000Z">
+<meta property="og:updated_time" content="2018-07-04T07:00:57.885Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ssdsim学习1">
-<meta name="twitter:description" content="说明：==下文内容摘自胡洋博士毕业论文。引文通过特殊格式标出==   本章介绍一个自主开发的高准确性、模块化、可配置的固态盘模拟器SSDsim，它能够对高级命令、能耗进行模拟，最终要的一点是它的模拟结果经过了基本的验证。  源码请参见ssdsim 时间模拟事件驱动的模拟器是根据系统内部各个部件的状态改变来修改系统时间，SSDsim就是采用的这种方式的驱动方法；">
-<meta name="twitter:image" content="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/ssdsim学习1.jpg">
+<meta name="twitter:title" content="通过宏定义的日志插件-C语言">
+<meta name="twitter:description" content="服务器程序运行少不了日志文件的输出，joyyzhang Google了一下相关的插件，发现实现的都太复杂，用起来也不方便，于是joyyzhang通过宏定义实现了一个轻量级的日志插件，只需引用其头文件即可使用，还能自定义日志的级别，用起来十分方便。 头文件代码如下.12345678910111213141516171819202122232425262728293031323334353637383">
   
     <link rel="alternative" href="/atom.xml" title="Yu Zhang&#39;s Blog" type="application/atom+xml">
   
@@ -238,20 +236,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-ssdsim学习1" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-通过宏定义的日志插件-C语言" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      ssdsim学习1
+      通过宏定义的日志插件-C语言
     </h1>
   
 
         
-        <a href="/2018/04/03/ssdsim学习1/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.163Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
+        <a href="/2018/07/04/通过宏定义的日志插件-C语言/" class="archive-article-date">
+  	<time datetime="2018-07-04T07:01:07.018Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-04</time>
 </a>
         
  
@@ -269,11 +267,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ssdsim</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ssd</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C语言</a>
         		</li>
       		
 		</ul>
@@ -286,71 +280,10 @@
       <br/><br/>
 
       
-        <blockquote>
-<p>说明：==下文内容摘自胡洋博士毕业论文。引文通过特殊格式标出==</p>
-</blockquote>
-<blockquote>
-<p>本章介绍一个自主开发的高准确性、模块化、可配置的固态盘模拟器SSDsim，它能够对高级命令、能耗进行模拟，最终要的一点是它的模拟结果经过了基本的验证。</p>
-</blockquote>
-<p>源码请参见<a href="http://storage.hust.edu.cn/SSDsim/" target="_blank" rel="noopener">ssdsim</a></p>
-<h2 id="时间模拟"><a href="#时间模拟" class="headerlink" title="时间模拟"></a>时间模拟</h2><p>事件驱动的模拟器是根据系统内部各个部件的状态改变来修改系统时间，SSDsim就是采用的这种方式的驱动方法；</p>
-<a id="more"></a>
-<blockquote>
-<p>在高性能固态盘中，存在三类主要的部件，既固态盘中的嵌入式处理器，内存颗粒，和闪存颗粒。处理器的时钟通常大于100MHz，既单个时钟的时间为10纳秒甚至更短；内存的读写操作时间是纳秒级；与此形成对比的是，闪存颗粒的读写时间是微秒级。因此在SSDsim中，只考虑对闪存的读写擦除操作的时间开销，内存的读写时间开销取一个平均值，忽略处理器的时间开销。对于一个独立的读、写、擦除操作，可以根据公式5.1、5.2、5.3获得准确的时间开销。表5.1中介绍了三个公式中出现的变量，表中所列参数具体值取自具体的闪存芯片的数据手册</p>
-</blockquote>
-<blockquote>
-<p>读操作： 7×tWC+tR+PS×tRC                公式1</p>
-<p>写操作：7×tWC +PS×tWC+tPROG               公式2</p>
-<p>擦除操作：5×tWC+tERASE                  公式3</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>简称</th>
-<th>含义</th>
-<th>时间</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>tR</td>
-<td>数据从目标物理页中读到分组的寄存器所消耗的时间</td>
-<td>20微妙</td>
-</tr>
-<tr>
-<td>tPROG</td>
-<td>数据从分组的寄存器写到目标物理页所消耗的时间</td>
-<td>200微妙</td>
-</tr>
-<tr>
-<td>tERASE</td>
-<td>目标物理块的擦除时间</td>
-<td>1.5毫秒</td>
-</tr>
-<tr>
-<td>tWC</td>
-<td>通过数据总线上向寄存器传输一个字节的数据所消耗的时间</td>
-<td>25纳秒</td>
-</tr>
-<tr>
-<td>tRC</td>
-<td>通过数据总线从寄存器向外传输一个字节的数据所消耗的时间</td>
-<td>25纳秒</td>
-</tr>
-<tr>
-<td>PS</td>
-<td>传输的数据量</td>
-</tr>
-</tbody>
-</table>
-<h2 id="能耗模拟"><a href="#能耗模拟" class="headerlink" title="能耗模拟"></a>能耗模拟</h2><blockquote>
-<p>因为不同的固态盘所使用的处理器不一样，不管采用什么样硬件结构和软件算法，处理器的能耗基本相同，所以在SSDsim中，不考虑处理器的能耗，只考虑内存和闪存的能耗。</p>
-<p>固态盘中需要一定的内存空间存储映射关系和缓存数据，通常采用两种类型的内存，DRAM或者SRAM。SRAM成本较高，容量较低，一般集成在处理器中；DRAM的成本较低，容量较大，一般是独立存在的。DRAM有三种工作状态，激活状态（active）、低功耗状态（standby）、刷新状态（refresh），在对DRAM进行读写操作时，DRAM处于激活状态；当短时间内没有对DRAM进行读写操作时，DRAM进入低功耗状态；当长时间内没有对DRAM有读写操作，DRAM就进入周期性刷新状态。在SSDsim中，每次对内存的操作的时间可以根据读写的数据量计算获得，所以DRAM处于激活状态的能耗可以根据所使用的内存颗粒的电压电流以及内存操作时间计算获得；当DRAM服务完一个读写操作后，随即进入低功耗状态，这段时间是两次读写操作之间的间隔时间，也可以计算获得；DRAM的刷新过程与所服务的负载的时间跨度有关，特定DRAM芯片的刷新周期是一定的，例如64毫秒，在SSDsim中可以根据负载的时间跨度，DRAM的刷新周期，以及DRAM的大小既DRAM刷新单位计算获得DRAM的刷新操作所消耗的能耗。<br>SSDsim通过采用上述的方法，分别获得闪存的能耗和内存的能耗，最终获得所模拟的固态盘服务某个负载所耗费的能量。</p>
-</blockquote>
-<h2 id="模块划分"><a href="#模块划分" class="headerlink" title="模块划分"></a>模块划分</h2><blockquote>
-<p>SSDsim用来模拟固态盘的硬件结构（包括闪存颗粒，固态盘内部通道等），闪存转换层（包括数据缓存区、地址映射、垃圾回收及损耗均衡等）。SSDsim分成三个逻辑模块，既硬件行为模拟层，闪存转换层，和数据缓存层，这三个模块也是固态盘中标准的三个组成部分。</p>
-</blockquote>
-<h2 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h2><p><img src="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/ssdsim学习1.jpg" alt="image"></p>
+        <p>服务器程序运行少不了日志文件的输出，joyyzhang Google了一下相关的插件，发现实现的都太复杂，用起来也不方便，于是joyyzhang通过宏定义实现了一个轻量级的日志插件，只需引用其头文件即可使用，还能自定义日志的级别，用起来十分方便。</p>
+<p>头文件代码如下.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;time.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line"></span><br><span class="line">#ifndef LOG_PARA</span><br><span class="line">#define LOG_PARA</span><br><span class="line">FILE *log_file = NULL;</span><br><span class="line">const char *LOG_FILE = &quot;logfile&quot;;</span><br><span class="line">const char LEVEL[3][20] = &#123;&quot;DEBUG&quot;,&quot;INFO&quot;,&quot;ERROR&quot;&#125;;</span><br><span class="line">const int CURRENT_LEVEL = 1;</span><br><span class="line">const int PRINT_INFO = 1;</span><br><span class="line">#define LOG_ON 1</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">#if LOG_ON</span><br><span class="line">#define LogWrite(level,s,arg...)\</span><br><span class="line">    if(PRINT_INFO)&#123;fprintf(stdout,s,##arg);printf(&quot;\n&quot;);&#125;\</span><br><span class="line">    if(level &gt;= CURRENT_LEVEL)\</span><br><span class="line">    &#123;log_file = fopen(LOG_FILE,&quot;a&quot;);\</span><br><span class="line">    fprintf(log_file,GET_MSG(level,s),##arg);\</span><br><span class="line">    fflush(log_file);fclose(log_file);&#125;</span><br><span class="line">#else</span><br><span class="line">#define LogWrite(level,f DMC_DEBUGs,arg...)</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">char *GET_MSG(int level,std::string s)&#123;</span><br><span class="line">    static char log_msg[1000];</span><br><span class="line">    time_t t = time(0);</span><br><span class="line">    struct tm *local = localtime(&amp;t);</span><br><span class="line">    char time_buf[128];</span><br><span class="line">    strftime(time_buf,64,&quot;%Y/%m/%d %H:%M:%S&quot;,local);</span><br><span class="line">    strcpy(log_msg,&quot;[&quot;);</span><br><span class="line">    strcat(log_msg,time_buf);</span><br><span class="line">    strcat(log_msg,&quot;] [&quot;);</span><br><span class="line">    strcat(log_msg,LEVEL[level]);</span><br><span class="line">    strcat(log_msg,&quot;] &quot;);</span><br><span class="line">    strcat(log_msg,s.c_str());</span><br><span class="line">    strcat(log_msg,&quot;\n&quot;);</span><br><span class="line">    return log_msg;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void LogClear()&#123;</span><br><span class="line">    log_file = fopen(LOG_FILE,&quot;w&quot;);</span><br><span class="line">    fclose(log_file);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">void test()&#123;</span><br><span class="line">    LogWrite(0,&quot;%d\n&quot;,123);</span><br><span class="line">    LogClear();</span><br><span class="line">    return;</span><br><span class="line">&#125;</span><br><span class="line">*/</span><br></pre></td></tr></table></figure></p>
+<p>将该文件命名为log.h，放在源码的同级目录下<br>要用到日志的代码在其头部加上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;log.h&quot;</span><br></pre></td></tr></table></figure></p>
+<p>即可使用，具体用法见test()函数，与printf语法基本一样，还加上了加了日志级别的判定。</p>
 
       
 
@@ -454,7 +387,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://aistorage.github.io/2018/04/03/ssdsim学习1/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://aistorage.github.io/2018/07/04/通过宏定义的日志插件-C语言/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -469,18 +402,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/04/03/VSCode配置/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/07/04/centos vim乱码问题/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          VSCode配置
+          centos vim乱码问题
         
       </div>
     </a>
   
   
-    <a href="/2018/04/03/SSD OP分区预留/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">SSD OP分区预留</div>
+    <a href="/2018/07/04/C++多线程与信号量/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">C++多线程与信号量</div>
       <i class="icon-circle-right"></i>
     </a>
   
