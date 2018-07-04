@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://aistorage.github.io">
   <title>C++多线程与信号量 | Yu Zhang&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="几个概念 并发：指进程同时发生。在操作系统中，是指一个时间段中有几个程序都处于已启动运行到运行完毕之间，且这几个程序都是在同一个处理机上运行。其中两种并发关系分别是同步和互斥。 并行：指进程同时运行。并行是针对多处理器而言的。并行是同时发生的多个并发事件，具有并发的含义，但并发不一定并行，也亦是说并发事件之间不一定要同一时刻发生。 互斥：进程间相互排斥的使用临界资源的现象，就叫互斥。 同步：进程">
+  <meta name="description" content="几个概念  并发：指进程同时发生。在操作系统中，是指一个时间段中有几个程序都处于已启动运行到运行完毕之间，且这几个程序都是在同一个处理机上运行。其中两种并发关系分别是同步和互斥。 并行：指进程同时运行。并行是针对多处理器而言的。并行是同时发生的多个并发事件，具有并发的含义，但并发不一定并行，也亦是说并发事件之间不一定要同一时刻发生。 互斥：进程间相互排斥的使用临界资源的现象，就叫互斥。 同步：进">
 <meta name="keywords" content="C++,多线程,信号量">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++多线程与信号量">
 <meta property="og:url" content="http://aistorage.github.io/2018/07/04/C++多线程与信号量/index.html">
 <meta property="og:site_name" content="Yu Zhang&#39;s Blog">
-<meta property="og:description" content="几个概念 并发：指进程同时发生。在操作系统中，是指一个时间段中有几个程序都处于已启动运行到运行完毕之间，且这几个程序都是在同一个处理机上运行。其中两种并发关系分别是同步和互斥。 并行：指进程同时运行。并行是针对多处理器而言的。并行是同时发生的多个并发事件，具有并发的含义，但并发不一定并行，也亦是说并发事件之间不一定要同一时刻发生。 互斥：进程间相互排斥的使用临界资源的现象，就叫互斥。 同步：进程">
+<meta property="og:description" content="几个概念  并发：指进程同时发生。在操作系统中，是指一个时间段中有几个程序都处于已启动运行到运行完毕之间，且这几个程序都是在同一个处理机上运行。其中两种并发关系分别是同步和互斥。 并行：指进程同时运行。并行是针对多处理器而言的。并行是同时发生的多个并发事件，具有并发的含义，但并发不一定并行，也亦是说并发事件之间不一定要同一时刻发生。 互斥：进程间相互排斥的使用临界资源的现象，就叫互斥。 同步：进">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-04T06:40:08.698Z">
+<meta property="og:updated_time" content="2018-07-04T06:49:43.268Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++多线程与信号量">
-<meta name="twitter:description" content="几个概念 并发：指进程同时发生。在操作系统中，是指一个时间段中有几个程序都处于已启动运行到运行完毕之间，且这几个程序都是在同一个处理机上运行。其中两种并发关系分别是同步和互斥。 并行：指进程同时运行。并行是针对多处理器而言的。并行是同时发生的多个并发事件，具有并发的含义，但并发不一定并行，也亦是说并发事件之间不一定要同一时刻发生。 互斥：进程间相互排斥的使用临界资源的现象，就叫互斥。 同步：进程">
+<meta name="twitter:description" content="几个概念  并发：指进程同时发生。在操作系统中，是指一个时间段中有几个程序都处于已启动运行到运行完毕之间，且这几个程序都是在同一个处理机上运行。其中两种并发关系分别是同步和互斥。 并行：指进程同时运行。并行是针对多处理器而言的。并行是同时发生的多个并发事件，具有并发的含义，但并发不一定并行，也亦是说并发事件之间不一定要同一时刻发生。 互斥：进程间相互排斥的使用临界资源的现象，就叫互斥。 同步：进">
   
     <link rel="alternative" href="/atom.xml" title="Yu Zhang&#39;s Blog" type="application/atom+xml">
   
@@ -289,16 +289,17 @@
 
       
         <ul>
-<li>几个概念<ul>
+<li><p>几个概念</p>
+<ul>
 <li>并发：指进程同时发生。在操作系统中，是指一个时间段中有几个程序都处于已启动运行到运行完毕之间，且这几个程序都是在同一个处理机上运行。其中两种并发关系分别是同步和互斥。</li>
 <li>并行：指进程同时运行。并行是针对多处理器而言的。并行是同时发生的多个并发事件，具有并发的含义，但并发不一定并行，也亦是说并发事件之间不一定要同一时刻发生。</li>
 <li>互斥：进程间相互排斥的使用临界资源的现象，就叫互斥。</li>
 <li>同步：进程之间的关系不是相互排斥临界资源的关系，而是相互依赖的关系。进一步的说明：就是前一个进程的输出作为后一个进程的输入，当第一个进程没有输出时第二个进程必须等待。具有同步关系的一组并发进程相互发送的信息称为消息或事件。</li>
 </ul>
+<a id="more"></a>
 </li>
-</ul>
+<li><p>C++多线程</p>
 <ul>
-<li>C++多线程<ul>
 <li>pthread <ul>
 <li>头文件与变量 <ul>
 <li>#include &lt;phtread.h&gt; //头文件</li>
@@ -330,13 +331,11 @@
 </li>
 </ul>
 </li>
-<li>实例<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;pthread.h&gt;</span><br><span class="line">#include &lt;semaphore.h&gt;</span><br><span class="line">#define SIZE 4</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">struct product&#123;</span><br><span class="line">	sem_t sem_empty;</span><br><span class="line">	sem_t sem_full;</span><br><span class="line">	pthread_mutex_t mutexlock;</span><br><span class="line">	int pos;</span><br><span class="line">	int buf[SIZE];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">void init(struct product *t)</span><br><span class="line">&#123;</span><br><span class="line">	pthread_mutex_init(&amp;t-&gt;mutexlock,NULL);</span><br><span class="line">	sem_init(&amp;t-&gt;sem_full,0,SIZE);</span><br><span class="line">	sem_init(&amp;t-&gt;sem_empty,0,0);</span><br><span class="line">	t-&gt;pos = -1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void put(struct product *t, int data)</span><br><span class="line">&#123;</span><br><span class="line">	sem_wait(&amp;t-&gt;sem_full);</span><br><span class="line">	pthread_mutex_lock(&amp;t-&gt;mutexlock);</span><br><span class="line">	t-&gt;pos = t-&gt;pos + 1;</span><br><span class="line">	t-&gt;buf[t-&gt;pos] = data;</span><br><span class="line">	printf(&quot;Thread %d put a data: %d to pos %d \n&quot;,pthread_self(),data,t-&gt;pos);</span><br><span class="line">	pthread_mutex_unlock(&amp;t-&gt;mutexlock);</span><br><span class="line">	sem_post(&amp;t-&gt;sem_empty);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void get(struct product *t)</span><br><span class="line">&#123;</span><br><span class="line">	sem_wait(&amp;t-&gt;sem_empty);</span><br><span class="line">	pthread_mutex_lock(&amp;t-&gt;mutexlock);</span><br><span class="line">	printf(&quot;Thread %d get a data : %d from pos %d \n&quot;,pthread_self(),t-&gt;buf[t-&gt;pos],t-&gt;pos);</span><br><span class="line">	t-&gt;buf[t-&gt;pos] = -1;</span><br><span class="line">	t-&gt;pos -= 1;</span><br><span class="line">	pthread_mutex_unlock(&amp;t-&gt;mutexlock);</span><br><span class="line">	sem_post(&amp;t-&gt;sem_full);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">struct product pdt;</span><br><span class="line">void* putter(void *ptr)</span><br><span class="line">&#123;</span><br><span class="line">        int n;</span><br><span class="line">        for(n=0;n&lt;8;n++)</span><br><span class="line">                put(&amp;pdt,n);</span><br><span class="line">&#125;</span><br><span class="line">void* getter(void *ptr)</span><br><span class="line">&#123;</span><br><span class="line">        int n;</span><br><span class="line">        for(n=0;n&lt;8;n++)</span><br><span class="line">                get(&amp;pdt);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	pthread_t pt1,pt2,gt1,gt2;</span><br><span class="line">	void *retval;</span><br><span class="line">	init(&amp;pdt);</span><br><span class="line">	pthread_create(&amp;gt1,NULL,getter,NULL);</span><br><span class="line">	pthread_create(&amp;pt1,NULL,putter,NULL);</span><br><span class="line">	//pthread_create(&amp;pt2,NULL,putter,NULL);</span><br><span class="line">	//pthread_create(&amp;gt2,NULL,getter,NULL);</span><br><span class="line"></span><br><span class="line">	pthread_join(pt1,&amp;retval);</span><br><span class="line">	pthread_join(pt2,&amp;retval);</span><br><span class="line">	pthread_join(gt1,&amp;retval);</span><br><span class="line">	pthread_join(gt2,&amp;retval);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>实例<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;pthread.h&gt;</span><br><span class="line">#include &lt;semaphore.h&gt;</span><br><span class="line">#define SIZE 4</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">struct product&#123;</span><br><span class="line">	sem_t sem_empty;</span><br><span class="line">	sem_t sem_full;</span><br><span class="line">	pthread_mutex_t mutexlock;</span><br><span class="line">	int pos;</span><br><span class="line">	int buf[SIZE];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">void init(struct product *t)</span><br><span class="line">&#123;</span><br><span class="line">	pthread_mutex_init(&amp;t-&gt;mutexlock,NULL);</span><br><span class="line">	sem_init(&amp;t-&gt;sem_full,0,SIZE);</span><br><span class="line">	sem_init(&amp;t-&gt;sem_empty,0,0);</span><br><span class="line">	t-&gt;pos = -1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void put(struct product *t, int data)</span><br><span class="line">&#123;</span><br><span class="line">	sem_wait(&amp;t-&gt;sem_full);</span><br><span class="line">	pthread_mutex_lock(&amp;t-&gt;mutexlock);</span><br><span class="line">	t-&gt;pos = t-&gt;pos + 1;</span><br><span class="line">	t-&gt;buf[t-&gt;pos] = data;</span><br><span class="line">	printf(&quot;Thread %d put a data: %d to pos %d \n&quot;,pthread_self(),data,t-&gt;pos);</span><br><span class="line">	pthread_mutex_unlock(&amp;t-&gt;mutexlock);</span><br><span class="line">	sem_post(&amp;t-&gt;sem_empty);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void get(struct product *t)</span><br><span class="line">&#123;</span><br><span class="line">	sem_wait(&amp;t-&gt;sem_empty);</span><br><span class="line">	pthread_mutex_lock(&amp;t-&gt;mutexlock);</span><br><span class="line">	printf(&quot;Thread %d get a data : %d from pos %d \n&quot;,pthread_self(),t-&gt;buf[t-&gt;pos],t-&gt;pos);</span><br><span class="line">	t-&gt;buf[t-&gt;pos] = -1;</span><br><span class="line">	t-&gt;pos -= 1;</span><br><span class="line">	pthread_mutex_unlock(&amp;t-&gt;mutexlock);</span><br><span class="line">	sem_post(&amp;t-&gt;sem_full);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">struct product pdt;</span><br><span class="line">void* putter(void *ptr)</span><br><span class="line">&#123;</span><br><span class="line">        int n;</span><br><span class="line">        for(n=0;n&lt;8;n++)</span><br><span class="line">                put(&amp;pdt,n);</span><br><span class="line">&#125;</span><br><span class="line">void* getter(void *ptr)</span><br><span class="line">&#123;</span><br><span class="line">        int n;</span><br><span class="line">        for(n=0;n&lt;8;n++)</span><br><span class="line">                get(&amp;pdt);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	pthread_t pt1,pt2,gt1,gt2;</span><br><span class="line">	void *retval;</span><br><span class="line">	init(&amp;pdt);</span><br><span class="line">	pthread_create(&amp;gt1,NULL,getter,NULL);</span><br><span class="line">	pthread_create(&amp;pt1,NULL,putter,NULL);</span><br><span class="line">	//pthread_create(&amp;pt2,NULL,putter,NULL);</span><br><span class="line">	//pthread_create(&amp;gt2,NULL,getter,NULL);</span><br><span class="line"></span><br><span class="line">	pthread_join(pt1,&amp;retval);</span><br><span class="line">	pthread_join(pt2,&amp;retval);</span><br><span class="line">	pthread_join(gt1,&amp;retval);</span><br><span class="line">	pthread_join(gt2,&amp;retval);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">结果:</span><br><span class="line">Thread 240386048 put a data: 0 to pos 0 </span><br><span class="line">Thread 239849472 get a data : 0 from pos 0 </span><br><span class="line">Thread 240386048 put a data: 1 to pos 0 </span><br><span class="line">Thread 240386048 put a data: 2 to pos 1 </span><br><span class="line">Thread 239849472 get a data : 2 from pos 1 </span><br><span class="line">Thread 240386048 put a data: 3 to pos 1 </span><br><span class="line">Thread 239849472 get a data : 3 from pos 1 </span><br><span class="line">Thread 240386048 put a data: 4 to pos 1 </span><br><span class="line">Thread 239849472 get a data : 4 from pos 1 </span><br><span class="line">Thread 240386048 put a data: 5 to pos 1 </span><br><span class="line">Thread 239849472 get a data : 5 from pos 1 </span><br><span class="line">Thread 240386048 put a data: 6 to pos 1 </span><br><span class="line">Thread 239849472 get a data : 6 from pos 1 </span><br><span class="line">Thread 240386048 put a data: 7 to pos 1 </span><br><span class="line">Thread 239849472 get a data : 7 from pos 1 </span><br><span class="line">Thread 239849472 get a data : 1 from pos 0</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
 </ul>
-<p>结果</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Thread 240386048 put a data: 0 to pos 0 </span><br><span class="line">Thread 239849472 get a data : 0 from pos 0 </span><br><span class="line">Thread 240386048 put a data: 1 to pos 0 </span><br><span class="line">Thread 240386048 put a data: 2 to pos 1 </span><br><span class="line">Thread 239849472 get a data : 2 from pos 1 </span><br><span class="line">Thread 240386048 put a data: 3 to pos 1 </span><br><span class="line">Thread 239849472 get a data : 3 from pos 1 </span><br><span class="line">Thread 240386048 put a data: 4 to pos 1 </span><br><span class="line">Thread 239849472 get a data : 4 from pos 1 </span><br><span class="line">Thread 240386048 put a data: 5 to pos 1 </span><br><span class="line">Thread 239849472 get a data : 5 from pos 1 </span><br><span class="line">Thread 240386048 put a data: 6 to pos 1 </span><br><span class="line">Thread 239849472 get a data : 6 from pos 1 </span><br><span class="line">Thread 240386048 put a data: 7 to pos 1 </span><br><span class="line">Thread 239849472 get a data : 7 from pos 1 </span><br><span class="line">Thread 239849472 get a data : 1 from pos 0</span><br></pre></td></tr></table></figure>
 
       
 
@@ -456,8 +455,8 @@
 <nav id="article-nav">
   
   
-    <a href="/2018/04/03/flashcache-3-底层存储模块/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">flashcache-3-底层存储模块</div>
+    <a href="/2018/04/03/flashcache-4-修改与测试/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">flashcache-4-修改与测试</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -608,11 +607,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">unordered_set</a>
+                <a href="javascript:void(0)" class="js-tag color2">VSCode</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">STL</a>
+                <a href="javascript:void(0)" class="js-tag color4">c++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">aws</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">弹性块存储</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -632,19 +639,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VSCode</a>
+                <a href="javascript:void(0)" class="js-tag color2">OP预留分区</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">c++</a>
+                <a href="javascript:void(0)" class="js-tag color4">SSD</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">blktrace</a>
+                <a href="javascript:void(0)" class="js-tag color4">unordered_set</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">fio</a>
+                <a href="javascript:void(0)" class="js-tag color4">STL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -660,11 +667,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ssdsim</a>
+                <a href="javascript:void(0)" class="js-tag color4">blktrace</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ssd</a>
+                <a href="javascript:void(0)" class="js-tag color4">fio</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -676,7 +683,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">编程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -684,15 +695,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">总线</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color2">ssdsim</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">编程</a>
+                <a href="javascript:void(0)" class="js-tag color4">ssd</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -704,11 +715,31 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">总线</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">存储阵列</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">存储系统</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">IO路径优化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">排队论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ad hoc无线网</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -720,11 +751,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">IO路径优化</a>
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -737,38 +768,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">zycache</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">OP预留分区</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SSD</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">排队论</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ad hoc无线网</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">aws</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">弹性块存储</a>
               </li>
             
             <div class="clearfix"></div>
