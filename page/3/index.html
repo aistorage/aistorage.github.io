@@ -233,20 +233,20 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-安和桥" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-存储相关-1-总线与存储器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/安和桥/">安和桥</a>
+      <a class="article-title" href="/2018/04/03/存储相关-1-总线与存储器/">存储相关-1-总线与存储器</a>
     </h1>
   
 
         
-        <a href="/2018/04/03/安和桥/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.194Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
+        <a href="/2018/04/03/存储相关-1-总线与存储器/" class="archive-article-date">
+  	<time datetime="2018-04-03T12:59:48.210Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
 </a>
         
  
@@ -264,7 +264,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">存储</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">总线</a>
         		</li>
       		
 		</ul>
@@ -277,13 +281,19 @@
       <br/><br/>
 
       
-        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=27646205&auto=0&height=66"></iframe>
-
-<blockquote>
-<p>不得不说，一段非洲鼓奏乐令人印象深刻</p>
-</blockquote>
+        <h1 id="1-IO总线"><a href="#1-IO总线" class="headerlink" title="1 IO总线"></a>1 IO总线</h1><h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><ul>
+<li>仲裁总线（控制总线）</li>
+<li>地址总线</li>
+<li>数据总线</li>
+</ul>
+<h3 id="PCI总线"><a href="#PCI总线" class="headerlink" title="PCI总线"></a>PCI总线</h3><ul>
+<li>PCI总线是目前普遍使用的一种连接南桥与外设的总线技术.</li>
+<li>PCI总线式数据与地址总线分时复用的.</li>
+<li>PCI总线所有时序的产生与控制都由Master发起，同一时刻只能供一对设备完成传输.</li>
+<li>PCI总线共享：硬件上使用三极管的物理特性实现，软件上通过中断链的方法实现.</li>
+</ul>
         
-          <a class="article-more-a" href="/2018/04/03/安和桥/#more">more >></a>
+          <a class="article-more-a" href="/2018/04/03/存储相关-1-总线与存储器/#more">more >></a>
         
       
 
@@ -296,7 +306,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/安和桥/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/04/03/存储相关-1-总线与存储器/">展开全文 >></a>
         </p>
       
 
@@ -401,20 +411,20 @@
 
 
   
-    <article id="post-VSCode配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-安和桥" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/VSCode配置/">VSCode配置</a>
+      <a class="article-title" href="/2018/04/03/安和桥/">安和桥</a>
     </h1>
   
 
         
-        <a href="/2018/04/03/VSCode配置/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.179Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
+        <a href="/2018/04/03/安和桥/" class="archive-article-date">
+  	<time datetime="2018-04-03T12:59:48.194Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
 </a>
         
  
@@ -432,11 +442,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">VSCode</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
         		</li>
       		
 		</ul>
@@ -449,11 +455,13 @@
       <br/><br/>
 
       
-        <p>工欲善其事必先利其器，学长都推荐source insight来看代码，用了一段时间，感觉还是不太方便，于是开始转战VS Code了！<br>VS Code确实是一个不错的编辑器，而且支持Linux/Mac Os/Windows系统。</p>
-<p>为什么用它看代码会比较方便呢？比如我要看下面这个变量buswait的定义(图1)，只需要按住ctl点击该变量即可转到定义(图2)，是不是跟eclipse的功能有点像呢！！！对于我这种JAVA转战C的码农简直就是天降福利啊，而且还支持分屏显示(图3)！！！</p>
-<p>图1.<br><img src="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/VSCode配置-2.png" alt="image"><br>
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=27646205&auto=0&height=66"></iframe>
+
+<blockquote>
+<p>不得不说，一段非洲鼓奏乐令人印象深刻</p>
+</blockquote>
         
-          <a class="article-more-a" href="/2018/04/03/VSCode配置/#more">more >></a>
+          <a class="article-more-a" href="/2018/04/03/安和桥/#more">more >></a>
         
       
 
@@ -466,7 +474,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/VSCode配置/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/04/03/安和桥/">展开全文 >></a>
         </p>
       
 
@@ -556,6 +564,176 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/04/03/STL unordered_set的使用/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-VSCode配置-windows" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/03/VSCode配置-windows/">VSCode配置-Windows</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/03/VSCode配置-windows/" class="archive-article-date">
+  	<time datetime="2018-04-03T12:59:48.179Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
+</a>
+        
+ 
+     
+
+      </header>
+
+    
+    <div class="article-entry" itemprop="articleBody">
+   
+      <div style="margin-left:-5px">
+        
+	<div class="article-tag tagcloud">
+		<!--i class="icon-price-tags icon"></i-->
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">VSCode</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+        
+
+      </div>
+
+      <br/><br/>
+
+      
+        <p>工欲善其事必先利其器，学长都推荐source insight来看代码，用了一段时间，感觉还是不太方便，于是开始转战VS Code了！<br>VS Code确实是一个不错的编辑器，而且支持Linux/Mac Os/Windows系统。</p>
+<p>为什么用它看代码会比较方便呢？比如我要看下面这个变量buswait的定义(图1)，只需要按住ctl点击该变量即可转到定义(图2)，是不是跟eclipse的功能有点像呢！！！对于我这种JAVA转战C的码农简直就是天降福利啊，而且还支持分屏显示(图3)！！！</p>
+<p>图1.<br><img src="http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/VSCode配置-2.png" alt="image"><br>
+        
+          <a class="article-more-a" href="/2018/04/03/VSCode配置-windows/#more">more >></a>
+        
+      
+
+            
+    </div>
+
+    <div class="article-info article-info-index">
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/03/VSCode配置-windows/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-SSD OP分区预留" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/03/SSD OP分区预留/">SSD OP分区预留</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/03/SSD OP分区预留/" class="archive-article-date">
+  	<time datetime="2018-04-03T12:59:48.163Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
+</a>
+        
+ 
+     
+
+      </header>
+
+    
+    <div class="article-entry" itemprop="articleBody">
+   
+      <div style="margin-left:-5px">
+        
+	<div class="article-tag tagcloud">
+		<!--i class="icon-price-tags icon"></i-->
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OP预留分区</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SSD</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+        
+
+      </div>
+
+      <br/><br/>
+
+      
+        <p>SSD上的OP指的是用户不可操作的容量，大小为实际容量减去用户可用容量，OP区域一般被用于优化操作如：WL，GC和坏块映射等。我们知道OP区间对于SSD的性能影响非常大，会减少SSD的可用容量，有减少WA、提高寿命、性能的正面作用。</p>
+        
+          <a class="article-more-a" href="/2018/04/03/SSD OP分区预留/#more">more >></a>
+        
+      
+
+            
+    </div>
+
+    <div class="article-info article-info-index">
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/03/SSD OP分区预留/">展开全文 >></a>
         </p>
       
 
@@ -667,90 +845,6 @@
 
 
   
-    <article id="post-SSD OP分区预留" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/SSD OP分区预留/">SSD OP分区预留</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/SSD OP分区预留/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.163Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
- 
-     
-
-      </header>
-
-    
-    <div class="article-entry" itemprop="articleBody">
-   
-      <div style="margin-left:-5px">
-        
-	<div class="article-tag tagcloud">
-		<!--i class="icon-price-tags icon"></i-->
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OP预留分区</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SSD</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-        
-
-      </div>
-
-      <br/><br/>
-
-      
-        <p>SSD上的OP指的是用户不可操作的容量，大小为实际容量减去用户可用容量，OP区域一般被用于优化操作如：WL，GC和坏块映射等。我们知道OP区间对于SSD的性能影响非常大，会减少SSD的可用容量，有减少WA、提高寿命、性能的正面作用。</p>
-        
-          <a class="article-more-a" href="/2018/04/03/SSD OP分区预留/#more">more >></a>
-        
-      
-
-            
-    </div>
-
-    <div class="article-info article-info-index">
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/SSD OP分区预留/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-shell脚本循环" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -821,93 +915,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/04/03/shell脚本循环/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-linux设备驱动-3-基本数据结构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/linux设备驱动-3-基本数据结构/">linux设备驱动-3-基本数据结构</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/linux设备驱动-3-基本数据结构/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.132Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
- 
-     
-
-      </header>
-
-    
-    <div class="article-entry" itemprop="articleBody">
-   
-      <div style="margin-left:-5px">
-        
-	<div class="article-tag tagcloud">
-		<!--i class="icon-price-tags icon"></i-->
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设备驱动</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-        
-
-      </div>
-
-      <br/><br/>
-
-      
-        <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>内核中使用的数据结构有双向链表、hash链表和单向链表，另外，红黑树和基树(radix数)也是内核使用的数据结构。</p>
-<p>container是Linux中很重要的一个概念，使用container能实现对象封装。代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#define offsetof(TYPE,MEMBER) ((size_t)&amp;((TYPE *)0)-&gt;MEMBER)</span><br><span class="line"></span><br><span class="line">#define container_of(ptr,type,member)(&#123;\</span><br><span class="line">    const typeof( ((type *)0)-&gt;member) *_mptr = (ptr);\</span><br><span class="line">    (type *)( (char *)_mptr - offsetof(type,member) );\</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>通过这种方法巧妙地实现了通过结构的一个成员找到整个结构的地址。内核中大使用了这种方法。</p>
-        
-          <a class="article-more-a" href="/2018/04/03/linux设备驱动-3-基本数据结构/#more">more >></a>
-        
-      
-
-            
-    </div>
-
-    <div class="article-info article-info-index">
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/linux设备驱动-3-基本数据结构/">展开全文 >></a>
         </p>
       
 
@@ -1013,20 +1020,20 @@
 
 
   
-    <article id="post-kmeans聚类" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-linux设备驱动-3-基本数据结构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/kmeans聚类/">kmeans聚类</a>
+      <a class="article-title" href="/2018/04/03/linux设备驱动-3-基本数据结构/">linux设备驱动-3-基本数据结构</a>
     </h1>
   
 
         
-        <a href="/2018/04/03/kmeans聚类/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.116Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
+        <a href="/2018/04/03/linux设备驱动-3-基本数据结构/" class="archive-article-date">
+  	<time datetime="2018-04-03T12:59:48.132Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
 </a>
         
  
@@ -1044,11 +1051,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">kmeans聚类</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设备驱动</a>
         		</li>
       		
 		</ul>
@@ -1061,12 +1068,12 @@
       <br/><br/>
 
       
-        <p>聚类算法有很多种，比如K-Means，AP聚类，层次聚类(Hierarchical clustering)等等，主要说一下K-Means.</p>
-<h2 id="kmeans简介"><a href="#kmeans简介" class="headerlink" title="kmeans简介"></a>kmeans简介</h2><p>K-Means之所以很受欢迎，就是其速度很快并且有很好的可扩展性。K-Means算法是一个重复移动类中心点的过程，把类的中心点，也称重心（centroids），移动到其包含成员的平均位置，然后重新划分其内部成员。</p>
-<p>在博文<a href="http://imyin.xyz/2016/10/08/K-Means/" target="_blank" rel="noopener">K-Means聚类</a>中有一个很好的里子说明了kmeans的具体工作原理。</p>
-<h2 id="kmeans库的使用"><a href="#kmeans库的使用" class="headerlink" title="kmeans库的使用"></a>kmeans库的使用</h2><p>在scikit_learn库中就有kmeans算法的具体实现，官方说明见连接<a href="http://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html" target="_blank" rel="noopener">sklearn.cluster.KMeans</a></p>
+        <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>内核中使用的数据结构有双向链表、hash链表和单向链表，另外，红黑树和基树(radix数)也是内核使用的数据结构。</p>
+<p>container是Linux中很重要的一个概念，使用container能实现对象封装。代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#define offsetof(TYPE,MEMBER) ((size_t)&amp;((TYPE *)0)-&gt;MEMBER)</span><br><span class="line"></span><br><span class="line">#define container_of(ptr,type,member)(&#123;\</span><br><span class="line">    const typeof( ((type *)0)-&gt;member) *_mptr = (ptr);\</span><br><span class="line">    (type *)( (char *)_mptr - offsetof(type,member) );\</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>通过这种方法巧妙地实现了通过结构的一个成员找到整个结构的地址。内核中大使用了这种方法。</p>
         
-          <a class="article-more-a" href="/2018/04/03/kmeans聚类/#more">more >></a>
+          <a class="article-more-a" href="/2018/04/03/linux设备驱动-3-基本数据结构/#more">more >></a>
         
       
 
@@ -1079,7 +1086,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/kmeans聚类/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/04/03/linux设备驱动-3-基本数据结构/">展开全文 >></a>
         </p>
       
 
@@ -1226,6 +1233,14 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">aws</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">弹性块存储</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">C++</a>
               </li>
              
@@ -1238,11 +1253,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">aws</a>
+                <a href="javascript:void(0)" class="js-tag color2">VSCode</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">弹性块存储</a>
+                <a href="javascript:void(0)" class="js-tag color4">c++</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1254,14 +1269,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">unordered_set</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">STL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
@@ -1270,11 +1277,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VSCode</a>
+                <a href="javascript:void(0)" class="js-tag color4">unordered_set</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">c++</a>
+                <a href="javascript:void(0)" class="js-tag color4">STL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1294,31 +1301,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">filebench</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">blktrace</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">fio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设备驱动</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ssdsim</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ssd</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1330,19 +1317,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">github pages</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">RAID</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文件系统</a>
+                <a href="javascript:void(0)" class="js-tag color5">设备驱动</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1351,6 +1330,34 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">编程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ssdsim</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ssd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">github pages</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">filebench</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">RAID</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">文件系统</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1371,6 +1378,18 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">IO路径优化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">C语言</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1395,18 +1414,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">缓存</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">C语言</a>
               </li>
             
             <div class="clearfix"></div>
