@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://aistorage.github.io">
-  <title>存储相关-3-磁盘阵列以及存储系统(DAS、SAN和NAS) | Yu Zhang&#39;s Blog</title>
+  <title>云盘分区与格式化-fdisk | Yu Zhang&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="磁盘阵列多个磁盘通过RAID卡组合起来,组成JBOD（just a bound of Disks,一串磁盘）.JBOD称为磁盘柜,凡是自带RAID控制器的盘柜就叫做磁盘阵列或者盘阵. 双控制器常用两个控制器来保证磁盘阵列的安全性  Active-Standby热备份  一个作为备份，只有当主控制器故障时副控制器才工作 Dual-Active双控制器同时工作两个同时工作，当其中一个故障时，另一个仍能">
-<meta name="keywords" content="存储,存储阵列,存储系统">
+  <meta name="description" content="基本流程识别硬盘 ==&amp;gt; 分区规划 ==》 格式化 ==》 挂载使用 首先使用lsblk查看硬盘的识别情况1lsblk 然后使用fdisk查看分区情况1fdisk -l 最后使用fdisk对硬盘进行分区1fdisk /dev/sdb  fdisk命令指南  1&amp;gt; 命令(输入 m 获取帮助)： m 2&amp;gt; 添加新的分区：n 3&amp;gt; 选择分区类型12345Partition typ">
+<meta name="keywords" content="存储,fdisk">
 <meta property="og:type" content="article">
-<meta property="og:title" content="存储相关-3-磁盘阵列以及存储系统(DAS、SAN和NAS)">
-<meta property="og:url" content="http://aistorage.github.io/2018/04/03/存储相关-3-磁盘阵列以及存储系统(DAS、SAN和NAS)/index.html">
+<meta property="og:title" content="云盘分区与格式化-fdisk">
+<meta property="og:url" content="http://aistorage.github.io/2018/09/20/云盘分区与格式化-fdisk/index.html">
 <meta property="og:site_name" content="Yu Zhang&#39;s Blog">
-<meta property="og:description" content="磁盘阵列多个磁盘通过RAID卡组合起来,组成JBOD（just a bound of Disks,一串磁盘）.JBOD称为磁盘柜,凡是自带RAID控制器的盘柜就叫做磁盘阵列或者盘阵. 双控制器常用两个控制器来保证磁盘阵列的安全性  Active-Standby热备份  一个作为备份，只有当主控制器故障时副控制器才工作 Dual-Active双控制器同时工作两个同时工作，当其中一个故障时，另一个仍能">
+<meta property="og:description" content="基本流程识别硬盘 ==&amp;gt; 分区规划 ==》 格式化 ==》 挂载使用 首先使用lsblk查看硬盘的识别情况1lsblk 然后使用fdisk查看分区情况1fdisk -l 最后使用fdisk对硬盘进行分区1fdisk /dev/sdb  fdisk命令指南  1&amp;gt; 命令(输入 m 获取帮助)： m 2&amp;gt; 添加新的分区：n 3&amp;gt; 选择分区类型12345Partition typ">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2017-04-06T07:02:42.000Z">
+<meta property="og:updated_time" content="2018-09-20T07:08:49.434Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="存储相关-3-磁盘阵列以及存储系统(DAS、SAN和NAS)">
-<meta name="twitter:description" content="磁盘阵列多个磁盘通过RAID卡组合起来,组成JBOD（just a bound of Disks,一串磁盘）.JBOD称为磁盘柜,凡是自带RAID控制器的盘柜就叫做磁盘阵列或者盘阵. 双控制器常用两个控制器来保证磁盘阵列的安全性  Active-Standby热备份  一个作为备份，只有当主控制器故障时副控制器才工作 Dual-Active双控制器同时工作两个同时工作，当其中一个故障时，另一个仍能">
+<meta name="twitter:title" content="云盘分区与格式化-fdisk">
+<meta name="twitter:description" content="基本流程识别硬盘 ==&amp;gt; 分区规划 ==》 格式化 ==》 挂载使用 首先使用lsblk查看硬盘的识别情况1lsblk 然后使用fdisk查看分区情况1fdisk -l 最后使用fdisk对硬盘进行分区1fdisk /dev/sdb  fdisk命令指南  1&amp;gt; 命令(输入 m 获取帮助)： m 2&amp;gt; 添加新的分区：n 3&amp;gt; 选择分区类型12345Partition typ">
   
     <link rel="alternative" href="/atom.xml" title="Yu Zhang&#39;s Blog" type="application/atom+xml">
   
@@ -236,20 +236,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-存储相关-3-磁盘阵列以及存储系统(DAS、SAN和NAS)" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-云盘分区与格式化-fdisk" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      存储相关-3-磁盘阵列以及存储系统(DAS、SAN和NAS)
+      云盘分区与格式化-fdisk
     </h1>
   
 
         
-        <a href="/2018/04/03/存储相关-3-磁盘阵列以及存储系统(DAS、SAN和NAS)/" class="archive-article-date">
-  	<time datetime="2018-04-03T12:59:48.226Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
+        <a href="/2018/09/20/云盘分区与格式化-fdisk/" class="archive-article-date">
+  	<time datetime="2018-09-20T07:09:47.724Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-20</time>
 </a>
         
  
@@ -271,11 +271,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">存储阵列</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">存储系统</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">fdisk</a>
         		</li>
       		
 		</ul>
@@ -288,76 +284,23 @@
       <br/><br/>
 
       
-        <h1 id="磁盘阵列"><a href="#磁盘阵列" class="headerlink" title="磁盘阵列"></a>磁盘阵列</h1><p>多个磁盘通过RAID卡组合起来,组成JBOD（just a bound of Disks,一串磁盘）.<strong>JBOD称为磁盘柜,凡是自带RAID控制器的盘柜就叫做磁盘阵列或者盘阵.</strong></p>
-<h4 id="双控制器"><a href="#双控制器" class="headerlink" title="双控制器"></a>双控制器</h4><p>常用两个控制器来保证磁盘阵列的安全性</p>
+        <h4 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h4><p>识别硬盘 ==&gt; 分区规划 ==》 格式化 ==》 挂载使用</p>
+<h4 id="首先使用lsblk查看硬盘的识别情况"><a href="#首先使用lsblk查看硬盘的识别情况" class="headerlink" title="首先使用lsblk查看硬盘的识别情况"></a>首先使用lsblk查看硬盘的识别情况</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsblk</span><br></pre></td></tr></table></figure>
+<h4 id="然后使用fdisk查看分区情况"><a href="#然后使用fdisk查看分区情况" class="headerlink" title="然后使用fdisk查看分区情况"></a>然后使用fdisk查看分区情况</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fdisk -l</span><br></pre></td></tr></table></figure>
+<h4 id="最后使用fdisk对硬盘进行分区"><a href="#最后使用fdisk对硬盘进行分区" class="headerlink" title="最后使用fdisk对硬盘进行分区"></a>最后使用fdisk对硬盘进行分区</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fdisk /dev/sdb</span><br></pre></td></tr></table></figure>
 <ul>
-<li>Active-Standby热备份<br>  一个作为备份，只有当主控制器故障时副控制器才工作</li>
-<li>Dual-Active双控制器同时工作<br>两个同时工作，当其中一个故障时，另一个仍能正常接管整个阵列的管理.</li>
-<li>Split Brain脑分裂<br>其中一个控制器检测不到另一个控制器的存在,则向电源控制器发送信号，重启对方并进入Standby状态.</li>
+<li>fdisk命令指南</li>
 </ul>
-<a id="more"></a>
-<h1 id="DAS、SAN和NAS"><a href="#DAS、SAN和NAS" class="headerlink" title="DAS、SAN和NAS"></a>DAS、SAN和NAS</h1><h3 id="DAS-Direct-Attached-Storage-直接附加网络"><a href="#DAS-Direct-Attached-Storage-直接附加网络" class="headerlink" title="DAS (Direct Attached  Storage)直接附加网络"></a>DAS (Direct Attached  Storage)直接附加网络</h3><p>直连式存储与服务器主机之间的连接通道通常采用SCSI连接，随着服务器CPU的处理能力越来越强，存储硬盘空间越来越大，阵列的硬盘数量越来越多，SCSI通道将会成为IO瓶颈；服务器主机SCSI ID资源有限，能够建立的SCSI通道连接有限。<br><strong>由于存储设备通过电缆直接与计算机相连，系统存取访问I/O请求直接在计算机和存储设备之间进行，故会受如下因素制约</strong></p>
-<ul>
-<li>硬盘</li>
-<li>内存缓存</li>
-<li>虚拟内存</li>
-<li>存储控制器</li>
-<li>RAID级别以及读写模式</li>
-<li>总线长度</li>
-</ul>
-<p><strong>DAS面临的挑战</strong></p>
-<ul>
-<li>存储与主机必须直连</li>
-<li>数据可用性<ul>
-<li>单节点故障</li>
-<li>数据资源的共享</li>
-</ul>
-</li>
-<li>可扩展性有限<ul>
-<li>连接的端口和主机有限</li>
-<li>有限的可寻址范围（即容量有上限）</li>
-<li>距离限制</li>
-</ul>
-</li>
-<li>需要停机维护</li>
-</ul>
-<h3 id="NAS-Network-Attached-Storage-附网存储"><a href="#NAS-Network-Attached-Storage-附网存储" class="headerlink" title="NAS(Network Attached Storage)附网存储"></a>NAS(Network Attached Storage)附网存储</h3><p>由于DAS存在上述的一系列限制,网络存储渐渐浮出水面,并得到了广泛应用.</p>
-<ul>
-<li><strong>网络存储的本质是通过网络建立用户与存储设备之间的连接，通过网络传输数据.</strong></li>
-<li>技术上通过软件提供高性能的文件服务.</li>
-<li><strong>NAS本质是一个专用的文件服务器，NAS不一定是盘阵，一台主机只要它有自己的磁盘和文件系统，并向外提供访问文件系统的接口（如NFS、CIFS等），就可以做成NAS.</strong></li>
-<li><strong>NAS其实就是处于以太网上的一台利用NFS、CIFS等网络文件系统的文件共享服务器.</strong></li>
-<li>一种瘦服务器方式的存储设备</li>
-</ul>
-<h3 id="NAS传输协议"><a href="#NAS传输协议" class="headerlink" title="NAS传输协议"></a>NAS传输协议</h3><ul>
-<li>CIFS(Common Internet File System)<ul>
-<li>微软定义的一套规范</li>
-<li>基于Windows NT的公共互联网文件系统</li>
-<li>使用TCP协议</li>
-<li>在服务器端验证用户身份，比NFS安全</li>
-</ul>
-</li>
-<li>NFS(Network File System)<ul>
-<li>Unix/Linux使用的协议</li>
-<li>底层使用TCP或者UDP协议</li>
-<li>开销远远小于CIFS</li>
-<li>在用户端安全登录</li>
-</ul>
-</li>
-</ul>
-<h3 id="SAN（Storage-Area-Net）存储局域网"><a href="#SAN（Storage-Area-Net）存储局域网" class="headerlink" title="SAN（Storage Area Net）存储局域网"></a>SAN（Storage Area Net）存储局域网</h3><ul>
-<li>SAN采用网络互连的存储区域网.</li>
-<li>FC-SAN得到了广泛应用，使用FC协议网络通讯.</li>
-<li>SAN只支持SCSI协议，SCSI语言及数据可以用FC协议传递。</li>
-</ul>
-<h3 id="NAS和SAN对比"><a href="#NAS和SAN对比" class="headerlink" title="NAS和SAN对比"></a>NAS和SAN对比</h3><ul>
-<li>速度对比<br>除非NAS使用快于内存的网络方式与主机通讯，否则其速度永远无法超过SAN架构。但是如果后端磁盘有瓶颈，那么<strong>NAS用网络代替内存的方法产生的性能降低</strong>就可以忽略。</li>
-<li>成本对比<br>NAS比SAN成本低很多</li>
-<li>可扩展性<br>NAS可扩展性强于SAN，只要有IP的地方，NAS 就可以提供服务，且容易部署和配置。NAS设备一般都可以提供多种协议访问数据，而SAN只能使用SCSI协议访问。</li>
-<li>数据共享<br>NAS可以被多个客户端访问，SAN除非安装了专门的集群管理系统或集群文件系统模块，否则不能共享某个LUN.</li>
-<li>SAN和NAS的选择<br>CPU不密集但是大块连续IO密集的应用选择SAN比较合适<br>对于IO不密集的随机小块IO场景选择NAS，<strong>NAS的根本瓶颈是底层链路的速度，若为高速以太网,首选NAS.</strong></li>
-<li>备注<br>目前普遍的架构是文件系统和磁盘控制器驱动程序都运行在应用服务器主机上。文件系统向卷发送的请求是通过内存来传递的，而主机向磁盘（LUN）发送的请求是通过FC网络来传递的。（SAN）</li>
-</ul>
+<p>1&gt; 命令(输入 m 获取帮助)： m</p>
+<p>2&gt; 添加新的分区：n</p>
+<p>3&gt; 选择分区类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Partition type: </span><br><span class="line">p primary (0 prmary, 0 extended, 4 free) </span><br><span class="line">e extended </span><br><span class="line">Select (default p): e </span><br><span class="line">输入e表示创建扩展分区</span><br></pre></td></tr></table></figure></p>
+<p>4&gt; 分区数量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">分区号 (1-4，默认 1)：1</span><br></pre></td></tr></table></figure></p>
+<p>5&gt; 设置扇区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">起始 扇区 (2048-83886079，默认为 2048)：回车 </span><br><span class="line">Last 扇区, +扇区 or +size&#123;K,M,G&#125; (2048-83886079，默认为 83886079)：回车</span><br></pre></td></tr></table></figure></p>
+<p>6&gt; 保存<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">命令(输入 m 获取帮助)：w</span><br></pre></td></tr></table></figure></p>
+<h4 id="格式化分区"><a href="#格式化分区" class="headerlink" title="格式化分区"></a>格式化分区</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs -t ext4 /dev/sdb</span><br></pre></td></tr></table></figure>
+<h4 id="挂载磁盘"><a href="#挂载磁盘" class="headerlink" title="挂载磁盘"></a>挂载磁盘</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sdb /opt</span><br></pre></td></tr></table></figure>
+<h4 id="开机自动挂载"><a href="#开机自动挂载" class="headerlink" title="开机自动挂载"></a>开机自动挂载</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/dev/sdb /opt ext3 defaults 1 1</span><br></pre></td></tr></table></figure>
+<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><p>fdisk只支持创建最大为2TB的卷分区，如果要创建大于2TB的分区需要使用parted工具进行创建，详细可以参见<br><a href="https://www.cnblogs.com/kevingrace/p/7612741.html" target="_blank" rel="noopener">parted命令详解</a></p>
 
       
 
@@ -461,7 +404,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://aistorage.github.io/2018/04/03/存储相关-3-磁盘阵列以及存储系统(DAS、SAN和NAS)/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://aistorage.github.io/2018/09/20/云盘分区与格式化-fdisk/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -476,18 +419,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/04/03/存储相关-4-虚拟化与系统IO路径优化/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          存储相关-4-虚拟化与系统IO路径优化
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/04/03/存储相关-2-RAID、虚拟磁盘、卷和文件系统/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">存储相关-2-RAID、虚拟磁盘、卷和文件系统</div>
+    <a href="/2018/08/08/VSCode配置-Macos/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">VSCode配置-Macos</div>
       <i class="icon-circle-right"></i>
     </a>
   
